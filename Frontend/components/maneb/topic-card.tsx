@@ -21,30 +21,34 @@ export function TopicCard({
   return (
     <button
       onClick={onClick}
-      className="bg-card rounded-2xl p-4 shadow-sm border border-border hover:shadow-md transition-all duration-200 active:scale-[0.98] w-full text-left"
+      className="bg-card rounded-2xl p-5 shadow-sm border border-border hover:shadow-md transition-all duration-200 active:scale-[0.98] w-full text-left min-h-[72px]"
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
           {isCompleted ? (
-            <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0" />
+            <div className="w-10 h-10 rounded-full bg-secondary/15 flex items-center justify-center">
+              <CheckCircle2 className="w-6 h-6 text-secondary flex-shrink-0" />
+            </div>
           ) : (
-            <Circle className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+            <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+              <Circle className="w-6 h-6 text-muted-foreground flex-shrink-0" />
+            </div>
           )}
           <div>
             <h3
               className={cn(
-                "font-medium text-sm",
+                "font-semibold text-base",
                 isCompleted ? "text-muted-foreground" : "text-foreground",
               )}
             >
               {title}
             </h3>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              {questionsCount} questions - {progress}% complete
+            <p className="text-sm text-muted-foreground mt-1">
+              {questionsCount} questions - {progress}% done
             </p>
           </div>
         </div>
-        <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+        <ChevronRight className="w-6 h-6 text-muted-foreground flex-shrink-0" />
       </div>
     </button>
   )

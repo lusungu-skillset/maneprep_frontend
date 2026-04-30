@@ -48,37 +48,39 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-4 py-3">
-        <div className="flex items-center gap-3 max-w-lg mx-auto">
-          <Button variant="ghost" size="icon" onClick={onBack} className="rounded-full">
-            <ArrowLeft className="w-5 h-5" />
+      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-5 py-4">
+        <div className="flex items-center gap-4 max-w-lg mx-auto">
+          <Button variant="ghost" size="icon" onClick={onBack} className="rounded-full w-11 h-11">
+            <ArrowLeft className="w-6 h-6" />
           </Button>
-          <h1 className="text-lg font-semibold text-foreground flex-1">Settings</h1>
+          <h1 className="text-xl font-bold text-foreground flex-1">Settings</h1>
           {showSaved && (
-            <div className="flex items-center gap-1 text-secondary text-sm">
-              <Check className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-secondary text-base font-medium">
+              <Check className="w-5 h-5" />
               <span>Saved</span>
             </div>
           )}
         </div>
       </header>
 
-      <main className="px-4 py-6 pb-24 max-w-lg mx-auto space-y-6">
+      <main className="px-5 py-6 pb-28 max-w-lg mx-auto space-y-8">
         {/* Account */}
         <section>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+          <h2 className="text-lg font-bold text-foreground mb-4">
             Account
           </h2>
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
             <button 
               onClick={onNavigateToEditProfile}
-              className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+              className="w-full flex items-center justify-between p-5 hover:bg-muted/50 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <User className="w-5 h-5 text-muted-foreground" />
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center">
+                  <User className="w-6 h-6 text-primary" />
+                </div>
                 <div className="text-left">
-                  <p className="font-medium text-foreground">Edit Profile</p>
-                  <p className="text-xs text-muted-foreground">Name, school, form level</p>
+                  <p className="font-semibold text-foreground text-base">Edit Profile</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">Change your name, school, or class</p>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -88,80 +90,92 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
 
         {/* Preferences */}
         <section>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+          <h2 className="text-lg font-bold text-foreground mb-4">
             Preferences
           </h2>
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden divide-y divide-border">
             {/* Notifications */}
-            <div className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-3">
-                <Bell className="w-5 h-5 text-muted-foreground" />
+            <div className="flex items-center justify-between p-5">
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-full bg-accent/10 flex items-center justify-center">
+                  <Bell className="w-6 h-6 text-accent" />
+                </div>
                 <div>
-                  <p className="font-medium text-foreground">Notifications</p>
-                  <p className="text-xs text-muted-foreground">Study reminders</p>
+                  <p className="font-semibold text-foreground text-base">Reminders</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">Get study reminders</p>
                 </div>
               </div>
               <button
                 onClick={() => handleToggle(setNotifications, notifications)}
                 className={cn(
-                  "w-12 h-7 rounded-full transition-colors relative",
+                  "w-14 h-8 rounded-full transition-colors relative",
                   notifications ? "bg-primary" : "bg-muted"
                 )}
+                aria-label={notifications ? "Turn off reminders" : "Turn on reminders"}
               >
                 <div className={cn(
-                  "w-5 h-5 rounded-full bg-white shadow absolute top-1 transition-all",
+                  "w-6 h-6 rounded-full bg-white shadow absolute top-1 transition-all",
                   notifications ? "right-1" : "left-1"
                 )} />
               </button>
             </div>
 
             {/* Sound Effects */}
-            <div className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-3">
-                <Volume2 className="w-5 h-5 text-muted-foreground" />
+            <div className="flex items-center justify-between p-5">
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-full bg-secondary/10 flex items-center justify-center">
+                  <Volume2 className="w-6 h-6 text-secondary" />
+                </div>
                 <div>
-                  <p className="font-medium text-foreground">Sound Effects</p>
-                  <p className="text-xs text-muted-foreground">Quiz feedback sounds</p>
+                  <p className="font-semibold text-foreground text-base">Sound Effects</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">Sounds when answering</p>
                 </div>
               </div>
               <button
                 onClick={() => handleToggle(setSoundEffects, soundEffects)}
                 className={cn(
-                  "w-12 h-7 rounded-full transition-colors relative",
+                  "w-14 h-8 rounded-full transition-colors relative",
                   soundEffects ? "bg-primary" : "bg-muted"
                 )}
+                aria-label={soundEffects ? "Turn off sounds" : "Turn on sounds"}
               >
                 <div className={cn(
-                  "w-5 h-5 rounded-full bg-white shadow absolute top-1 transition-all",
+                  "w-6 h-6 rounded-full bg-white shadow absolute top-1 transition-all",
                   soundEffects ? "right-1" : "left-1"
                 )} />
               </button>
             </div>
 
             {/* Dark Mode */}
-            <div className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-3">
-                {isDark ? (
-                  <Sun className="w-5 h-5 text-accent" />
-                ) : (
-                  <Moon className="w-5 h-5 text-muted-foreground" />
-                )}
+            <div className="flex items-center justify-between p-5">
+              <div className="flex items-center gap-4">
+                <div className={cn(
+                  "w-11 h-11 rounded-full flex items-center justify-center",
+                  isDark ? "bg-accent/10" : "bg-muted"
+                )}>
+                  {isDark ? (
+                    <Sun className="w-6 h-6 text-accent" />
+                  ) : (
+                    <Moon className="w-6 h-6 text-muted-foreground" />
+                  )}
+                </div>
                 <div>
-                  <p className="font-medium text-foreground">Dark Mode</p>
-                  <p className="text-xs text-muted-foreground">
-                    {isDark ? "Light up your screen" : "Easy on the eyes"}
+                  <p className="font-semibold text-foreground text-base">Dark Mode</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">
+                    {isDark ? "Switch to light mode" : "Easier on your eyes at night"}
                   </p>
                 </div>
               </div>
               <button
                 onClick={handleThemeToggle}
                 className={cn(
-                  "w-12 h-7 rounded-full transition-colors relative",
+                  "w-14 h-8 rounded-full transition-colors relative",
                   isDark ? "bg-primary" : "bg-muted"
                 )}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
               >
                 <div className={cn(
-                  "w-5 h-5 rounded-full bg-white shadow absolute top-1 transition-all",
+                  "w-6 h-6 rounded-full bg-white shadow absolute top-1 transition-all",
                   isDark ? "right-1" : "left-1"
                 )} />
               </button>
@@ -171,28 +185,31 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
 
         {/* Offline */}
         <section>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-            Offline Mode
+          <h2 className="text-lg font-bold text-foreground mb-4">
+            Saved Content
           </h2>
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden divide-y divide-border">
             {/* Auto Download */}
-            <div className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-3">
-                <Wifi className="w-5 h-5 text-muted-foreground" />
+            <div className="flex items-center justify-between p-5">
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Wifi className="w-6 h-6 text-primary" />
+                </div>
                 <div>
-                  <p className="font-medium text-foreground">Auto-Download</p>
-                  <p className="text-xs text-muted-foreground">Download on WiFi only</p>
+                  <p className="font-semibold text-foreground text-base">Auto-Save</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">Save content when on WiFi</p>
                 </div>
               </div>
               <button
                 onClick={() => handleToggle(setAutoDownload, autoDownload)}
                 className={cn(
-                  "w-12 h-7 rounded-full transition-colors relative",
+                  "w-14 h-8 rounded-full transition-colors relative",
                   autoDownload ? "bg-primary" : "bg-muted"
                 )}
+                aria-label={autoDownload ? "Turn off auto-save" : "Turn on auto-save"}
               >
                 <div className={cn(
-                  "w-5 h-5 rounded-full bg-white shadow absolute top-1 transition-all",
+                  "w-6 h-6 rounded-full bg-white shadow absolute top-1 transition-all",
                   autoDownload ? "right-1" : "left-1"
                 )} />
               </button>
@@ -201,13 +218,15 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
             {/* Manage Downloads */}
             <button 
               onClick={onNavigateToDownloads}
-              className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+              className="w-full flex items-center justify-between p-5 hover:bg-muted/50 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <Download className="w-5 h-5 text-muted-foreground" />
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-full bg-muted flex items-center justify-center">
+                  <Download className="w-6 h-6 text-muted-foreground" />
+                </div>
                 <div className="text-left">
-                  <p className="font-medium text-foreground">Manage Downloads</p>
-                  <p className="text-xs text-muted-foreground">Offline cache is not configured yet</p>
+                  <p className="font-semibold text-foreground text-base">Manage Saved Content</p>
+                  <p className="text-sm text-muted-foreground mt-0.5">View and delete saved items</p>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -217,24 +236,28 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
 
         {/* Support */}
         <section>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+          <h2 className="text-lg font-bold text-foreground mb-4">
             Support
           </h2>
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden divide-y divide-border">
             <button 
               onClick={onNavigateToHelp}
-              className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+              className="w-full flex items-center justify-between p-5 hover:bg-muted/50 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <HelpCircle className="w-5 h-5 text-muted-foreground" />
-                <span className="font-medium text-foreground">Help & FAQ</span>
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-full bg-secondary/10 flex items-center justify-center">
+                  <HelpCircle className="w-6 h-6 text-secondary" />
+                </div>
+                <span className="font-semibold text-foreground text-base">Help and FAQ</span>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
             </button>
-            <button className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors">
-              <div className="flex items-center gap-3">
-                <FileText className="w-5 h-5 text-muted-foreground" />
-                <span className="font-medium text-foreground">Terms & Privacy</span>
+            <button className="w-full flex items-center justify-between p-5 hover:bg-muted/50 transition-colors">
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-full bg-muted flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-muted-foreground" />
+                </div>
+                <span className="font-semibold text-foreground text-base">Terms and Privacy</span>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
             </button>
@@ -242,9 +265,9 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
         </section>
 
         {/* App Info */}
-        <div className="text-center pt-4">
-          <p className="text-xs text-muted-foreground">MANEB Prep v1.0.0</p>
-          <p className="text-xs text-muted-foreground mt-1">Made with love for Malawian students</p>
+        <div className="text-center pt-6">
+          <p className="text-base text-muted-foreground font-medium">MANEB Prep v1.0.0</p>
+          <p className="text-sm text-muted-foreground mt-2">Made with love for Malawian students</p>
         </div>
       </main>
     </div>

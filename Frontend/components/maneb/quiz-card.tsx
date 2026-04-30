@@ -46,44 +46,44 @@ export function QuizCard({
   const DifficultyIcon = config.icon
 
   return (
-    <div className="group bg-card rounded-2xl p-4 shadow-sm border border-border overflow-hidden relative hover:shadow-md transition-all duration-300 hover:border-primary/30">
+    <div className="group bg-card rounded-2xl p-5 shadow-sm border border-border overflow-hidden relative hover:shadow-md transition-all duration-300 hover:border-primary/30">
       {/* Subtle gradient background */}
       <div className={cn(
         "absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl rounded-bl-full opacity-50 transition-opacity group-hover:opacity-80",
         config.gradient
       )} />
       
-      <div className="flex flex-col gap-3 relative">
+      <div className="flex flex-col gap-4 relative">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">{subject}</p>
-            <h3 className="font-semibold text-foreground text-base mt-1">{topic}</h3>
+            <p className="text-sm text-muted-foreground font-semibold uppercase tracking-wide">{subject}</p>
+            <h3 className="font-bold text-foreground text-lg mt-1">{topic}</h3>
           </div>
           <span className={cn(
-            "text-xs font-medium px-2.5 py-1.5 rounded-full flex items-center gap-1",
+            "text-sm font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5",
             config.bg, config.color
           )}>
-            <DifficultyIcon className="w-3 h-3" />
+            <DifficultyIcon className="w-4 h-4" />
             {difficulty}
           </span>
         </div>
         
-        <div className="flex items-center gap-4 text-xs text-muted-foreground">
-          <div className="flex items-center gap-1.5">
-            <HelpCircle className="w-4 h-4" />
+        <div className="flex items-center gap-5 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <HelpCircle className="w-5 h-5" />
             <span>{questionCount} questions</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4" />
+          <div className="flex items-center gap-2">
+            <Clock className="w-5 h-5" />
             <span>{estimatedTime}</span>
           </div>
         </div>
         
         <Button 
           onClick={onStart}
-          className="w-full mt-1 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium h-11 group-hover:scale-[1.02] transition-transform"
+          className="w-full mt-1 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 text-base group-hover:scale-[1.01] transition-transform"
         >
-          <Play className="w-4 h-4 mr-2 fill-current" />
+          <Play className="w-5 h-5 mr-2 fill-current" />
           Start Quiz
         </Button>
       </div>

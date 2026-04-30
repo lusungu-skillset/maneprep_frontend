@@ -41,22 +41,22 @@ export function PracticeScreen({
   )
 
   return (
-    <div className="p-4 pb-24 space-y-6 max-w-lg mx-auto">
+    <div className="px-5 py-6 pb-28 space-y-8 max-w-lg mx-auto">
       <section className="flex items-center justify-between">
         <div>
-          <h2 className="text-student-xl text-foreground">Practice</h2>
-          <p className="text-muted-foreground text-student-sm mt-1">
-            Real and Maneb-Centric questions
+          <h2 className="text-2xl font-bold text-foreground">Practice</h2>
+          <p className="text-base text-muted-foreground mt-1">
+            Test your knowledge with real questions
           </p>
         </div>
-        <span className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-student-sm font-medium">
+        <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-base font-semibold">
           {userForm}
         </span>
       </section>
 
       <section>
         <ExamModeCard
-          subject={`${userForm} - Combined`}
+          subject={`${userForm} - All Subjects`}
           duration={`${Math.max(20, totalQuestionCount)} mins`}
           questionCount={totalQuestionCount}
           onStart={onStartExamMode}
@@ -64,13 +64,13 @@ export function PracticeScreen({
       </section>
 
       <section>
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex items-center gap-3 overflow-x-auto pb-3 scrollbar-hide">
           {subjects.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
               className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors",
+                "px-5 py-2.5 rounded-full text-base font-semibold whitespace-nowrap transition-colors min-h-[44px]",
                 activeFilter === filter
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground hover:bg-muted/80",
@@ -83,10 +83,11 @@ export function PracticeScreen({
       </section>
 
       <section>
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-          {userForm} Quizzes {activeFilter !== "All" && `(${filteredQuizzes.length})`}
+        <h3 className="text-lg font-bold text-foreground mb-4">
+          {activeFilter === "All" ? `All ${userForm} Quizzes` : `${activeFilter} Quizzes`}
+          {activeFilter !== "All" && ` (${filteredQuizzes.length})`}
         </h3>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {filteredQuizzes.length > 0 ? (
             filteredQuizzes.map((quiz) => (
               <QuizCard
@@ -100,8 +101,8 @@ export function PracticeScreen({
               />
             ))
           ) : (
-            <div className="bg-card rounded-2xl border border-border p-5 text-center text-muted-foreground">
-              <p>No quizzes are available for {activeFilter}.</p>
+            <div className="bg-card rounded-2xl border border-border p-6 text-center text-base text-muted-foreground">
+              <p>No quizzes available for {activeFilter} yet.</p>
             </div>
           )}
         </div>
