@@ -61,9 +61,9 @@ export function HomeScreen({
   dailyChallenge = null,
 }: HomeScreenProps) {
   return (
-    <div className="pb-24 max-w-lg mx-auto">
+    <div className="pb-28 max-w-lg mx-auto">
       {/* Hero Section */}
-      <div className="relative h-44 w-full overflow-hidden">
+      <div className="relative h-52 w-full overflow-hidden">
         <Image
           src="/images/hero-students.jpg"
           alt="Students studying"
@@ -71,44 +71,44 @@ export function HomeScreen({
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-background" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <p className="text-student-sm text-white/80">Welcome back,</p>
-          <h2 className="text-student-2xl text-white drop-shadow-lg">{userProfile.name}</h2>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-background" />
+        <div className="absolute bottom-6 left-5 right-5">
+          <p className="text-base text-white/90 font-medium">Welcome back,</p>
+          <h2 className="text-3xl font-bold text-white drop-shadow-lg mt-1">{userProfile.name}</h2>
           <button 
             onClick={onNavigateToFormSelector}
-            className="inline-flex items-center gap-1 mt-2 px-3 py-1 rounded-full bg-white/20 hover:bg-white/30 text-white text-student-xs font-medium transition-colors"
+            className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full bg-white/25 hover:bg-white/35 text-white text-sm font-semibold transition-colors min-h-[44px]"
           >
             {userProfile.form}
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      <div className="p-4 space-y-6">
+      <div className="px-5 py-6 space-y-8">
         <SyncStatus lastSynced={lastSynced ?? undefined} />
 
         {/* Quick Actions */}
         <section>
-          <div className="space-y-3">
+          <div className="space-y-4">
             <QuickActionCard
               title="Start Practice"
-              description={`${subjects.length} live subjects`}
+              description={`${subjects.length} subjects ready`}
               icon={Play}
               color="bg-gradient-to-r from-primary to-primary/80"
               onClick={onNavigateToPractice}
             />
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               <QuickActionCard
-                title="Download"
-                description="Backend testing"
+                title="Browse All"
+                description="View subjects"
                 icon={Download}
                 color="bg-gradient-to-r from-secondary to-secondary/80"
                 onClick={onNavigateToSubjects}
               />
               <QuickActionCard
                 title="Continue"
-                description={dailyChallenge ? "Resume a live topic" : "Browse subjects"}
+                description={dailyChallenge ? "Resume topic" : "Pick a subject"}
                 icon={BookMarked}
                 color="bg-gradient-to-r from-accent to-accent/80"
                 onClick={dailyChallenge ? dailyChallenge.onStart : onNavigateToSubjects}
@@ -119,19 +119,19 @@ export function HomeScreen({
 
         {/* Subjects Grid */}
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold text-foreground">
               {userProfile.form} Subjects
             </h3>
             <button 
               onClick={onNavigateToSubjects}
-              className="text-sm text-primary font-medium"
+              className="text-base text-primary font-semibold hover:underline"
             >
               See All
             </button>
           </div>
           {subjects.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               {subjects.slice(0, 4).map((subject) => (
                 <SubjectCard
                   key={subject.id}
@@ -145,88 +145,88 @@ export function HomeScreen({
               ))}
             </div>
           ) : (
-            <div className="bg-card rounded-2xl border border-border p-5 text-sm text-muted-foreground">
-              No subjects were returned for {userProfile.form} yet.
+            <div className="bg-card rounded-2xl border border-border p-6 text-base text-muted-foreground text-center">
+              No subjects available for {userProfile.form} yet. Check back soon!
             </div>
           )}
         </section>
 
         {/* More Features */}
         <section>
-          <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-            More
+          <h3 className="text-lg font-bold text-foreground mb-4">
+            More Features
           </h3>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <button 
               onClick={onNavigateToAchievements}
-              className="bg-card rounded-2xl p-4 shadow-sm border border-border text-center hover:border-primary/30 transition-all"
+              className="bg-card rounded-2xl p-5 shadow-sm border border-border text-center transition-all duration-200 hover:shadow-md hover:border-primary/30 active:scale-[0.98]"
             >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-2">
-                <Trophy className="w-6 h-6 text-accent" />
+              <div className="w-14 h-14 rounded-2xl bg-accent/15 flex items-center justify-center mx-auto mb-3">
+                <Trophy className="w-7 h-7 text-accent" />
               </div>
-              <p className="text-sm font-medium text-foreground">Badges</p>
+              <p className="text-base font-semibold text-foreground">Badges</p>
             </button>
             <button 
               onClick={onNavigateToLeaderboard}
-              className="bg-card rounded-2xl p-4 shadow-sm border border-border text-center hover:border-primary/30 transition-all"
+              className="bg-card rounded-2xl p-5 shadow-sm border border-border text-center transition-all duration-200 hover:shadow-md hover:border-primary/30 active:scale-[0.98]"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2">
-                <Users className="w-6 h-6 text-primary" />
+              <div className="w-14 h-14 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto mb-3">
+                <Users className="w-7 h-7 text-primary" />
               </div>
-              <p className="text-sm font-medium text-foreground">Ranking</p>
+              <p className="text-base font-semibold text-foreground">Ranking</p>
             </button>
             <button 
               onClick={onNavigateToStudyTips}
-              className="bg-card rounded-2xl p-4 shadow-sm border border-border text-center hover:border-primary/30 transition-all"
+              className="bg-card rounded-2xl p-5 shadow-sm border border-border text-center transition-all duration-200 hover:shadow-md hover:border-primary/30 active:scale-[0.98]"
             >
-              <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mx-auto mb-2">
-                <Lightbulb className="w-6 h-6 text-secondary" />
+              <div className="w-14 h-14 rounded-2xl bg-secondary/15 flex items-center justify-center mx-auto mb-3">
+                <Lightbulb className="w-7 h-7 text-secondary" />
               </div>
-              <p className="text-sm font-medium text-foreground">Tips</p>
+              <p className="text-base font-semibold text-foreground">Study Tips</p>
             </button>
             <button 
               onClick={onNavigateToPastPapers}
-              className="bg-card rounded-2xl p-4 shadow-sm border border-border text-center hover:border-primary/30 transition-all"
+              className="bg-card rounded-2xl p-5 shadow-sm border border-border text-center transition-all duration-200 hover:shadow-md hover:border-primary/30 active:scale-[0.98]"
             >
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mx-auto mb-2">
-                <Calendar className="w-6 h-6 text-blue-500" />
+              <div className="w-14 h-14 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto mb-3">
+                <Calendar className="w-7 h-7 text-primary" />
               </div>
-              <p className="text-sm font-medium text-foreground">Past Papers</p>
+              <p className="text-base font-semibold text-foreground">Past Papers</p>
             </button>
           </div>
         </section>
 
         {/* Daily Challenge */}
         <section>
-          <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-5 text-white">
-            <div className="flex items-center gap-4">
-              <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+          <div className="bg-gradient-to-r from-primary to-primary/85 rounded-3xl p-6 text-white shadow-lg">
+            <div className="flex items-center gap-5">
+              <div className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-md">
                 <Image
                   src="/images/subject-science.jpg"
-                  alt="Backend challenge"
+                  alt="Daily challenge"
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-white/80 uppercase tracking-wide font-semibold">
-                  Backend Challenge
+                <p className="text-sm text-white/85 uppercase tracking-wider font-semibold">
+                  Daily Challenge
                 </p>
-                <h4 className="text-lg font-bold mt-1">
-                  {dailyChallenge ? dailyChallenge.label : `${userProfile.form} content`}
+                <h4 className="text-xl font-bold mt-1 text-balance">
+                  {dailyChallenge ? dailyChallenge.label : `${userProfile.form} Questions`}
                 </h4>
-                <p className="text-sm text-white/90 mt-1">
+                <p className="text-base text-white/90 mt-1">
                   {dailyChallenge
-                    ? `${dailyChallenge.questionCount} questions`
-                    : "Choose a subject with live data"}
+                    ? `${dailyChallenge.questionCount} questions to answer`
+                    : "Pick a subject to start"}
                 </p>
               </div>
             </div>
             <button 
               onClick={dailyChallenge ? dailyChallenge.onStart : onNavigateToSubjects}
-              className="mt-4 w-full bg-white/20 hover:bg-white/30 rounded-xl py-3 font-semibold transition-colors"
+              className="mt-5 w-full bg-white/25 hover:bg-white/35 rounded-2xl py-4 text-lg font-bold transition-colors min-h-[52px]"
             >
-              {dailyChallenge ? "Start" : "Browse"}
+              {dailyChallenge ? "Start Challenge" : "Browse Subjects"}
             </button>
           </div>
         </section>

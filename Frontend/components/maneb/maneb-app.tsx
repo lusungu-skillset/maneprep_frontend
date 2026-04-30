@@ -593,10 +593,10 @@ export function MANEBApp() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
         <div className="text-center max-w-sm">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="mt-4 text-foreground font-medium">Loading content</p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Live subjects, topics, questions, and progress.
+          <div className="w-14 h-14 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="mt-5 text-lg text-foreground font-semibold">Loading your content</p>
+          <p className="mt-2 text-base text-muted-foreground">
+            Getting subjects, topics, and questions ready for you.
           </p>
         </div>
       </div>
@@ -606,16 +606,16 @@ export function MANEBApp() {
   if (backendError && subjectBundles.length === 0) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
-        <div className="bg-card border border-border rounded-3xl shadow-sm p-6 max-w-md text-center">
-          <h2 className="text-xl font-semibold text-foreground">Oops!! Connection failed, Try again later</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">
-            {backendError}
+        <div className="bg-card border border-border rounded-3xl shadow-lg p-8 max-w-md text-center">
+          <h2 className="text-2xl font-bold text-foreground">Something went wrong</h2>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            We could not load your content. Please check your internet connection and try again.
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-5 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+            className="mt-6 rounded-2xl bg-primary px-6 py-4 text-base font-bold text-primary-foreground w-full"
           >
-            Reload App
+            Try Again
           </button>
         </div>
       </div>
@@ -645,7 +645,7 @@ export function MANEBApp() {
           topics: selectedSubject.topics.map((topic) => ({
             id: topic.id,
             title: topic.name,
-            description: `${topic.questionCount} live questions loaded from the backend.`,
+            description: `${topic.questionCount} questions available to practice.`,
             questionsCount: topic.questionCount,
             isCompleted: topic.isCompleted,
             progress: topic.progress,

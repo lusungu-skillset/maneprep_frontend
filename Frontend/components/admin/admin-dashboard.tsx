@@ -157,37 +157,37 @@ const SECTION_ITEMS: Array<{
     id: 'subjects',
     label: 'Subjects',
     icon: GraduationCap,
-    description: 'Create and organize class subjects',
+    description: 'Create and organize subjects by class level',
   },
   {
     id: 'topics',
     label: 'Topics',
     icon: BookCopy,
-    description: 'Manage subject topics and units',
+    description: 'Manage topics within subjects',
   },
   {
     id: 'questions',
     label: 'Questions',
     icon: BookOpenText,
-    description: 'Build exam-ready question banks',
+    description: 'Create and edit quiz questions',
   },
   {
     id: 'pastPapers',
     label: 'Past Papers',
     icon: Calendar,
-    description: 'Organize and manage past exam papers by year',
+    description: 'Manage past exam questions by year',
   },
   {
     id: 'upload',
-    label: 'Upload Content',
+    label: 'Bulk Upload',
     icon: Upload,
-    description: 'Import JSON or CSV question sets',
+    description: 'Import questions from files',
   },
   {
     id: 'settings',
     label: 'Settings',
     icon: Settings2,
-    description: 'Connection and admin access',
+    description: 'Admin access and connection settings',
   },
 ]
 
@@ -482,24 +482,26 @@ function PaginationControls({
   }
 
   return (
-    <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-background/70 px-4 py-3">
-      <p className="text-sm text-muted-foreground">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-card px-5 py-4">
+      <p className="text-base font-medium text-muted-foreground">
         Page {page} of {totalPages}
       </p>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <Button
           variant="outline"
-          size="sm"
+          size="default"
           onClick={() => onChange(page - 1)}
           disabled={page <= 1}
+          className="min-w-[100px]"
         >
           Previous
         </Button>
         <Button
           variant="outline"
-          size="sm"
+          size="default"
           onClick={() => onChange(page + 1)}
           disabled={page >= totalPages}
+          className="min-w-[100px]"
         >
           Next
         </Button>
@@ -513,7 +515,7 @@ function FieldError({ message }: { message?: string }) {
     return null
   }
 
-  return <p className="text-xs text-destructive">{message}</p>
+  return <p className="text-sm font-medium text-destructive mt-1">{message}</p>
 }
 
 function SectionShell({
@@ -526,12 +528,12 @@ function SectionShell({
   children: ReactNode
 }) {
   return (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+    <div className="space-y-8">
+      <div className="space-y-3">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">
           {title}
         </h2>
-        <p className="max-w-3xl text-sm leading-6 text-muted-foreground">
+        <p className="max-w-3xl text-base leading-relaxed text-muted-foreground">
           {description}
         </p>
       </div>

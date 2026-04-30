@@ -16,53 +16,53 @@ export function Header({ title, showSearch = true, isOnline = true, onSearchClic
   const { isDark, toggleTheme } = useTheme()
 
   return (
-    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-4 py-3 shadow-sm">
+    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-5 py-4 shadow-sm">
       <div className="flex items-center justify-between max-w-lg mx-auto">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Image
             src="/images/logo.jpg"
             alt="MANEB Prep"
-            width={36}
-            height={36}
-            className="rounded-lg"
+            width={40}
+            height={40}
+            className="rounded-xl"
           />
-          <h1 className="text-lg font-semibold text-foreground">{title}</h1>
+          <h1 className="text-xl font-bold text-foreground">{title}</h1>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           {!isOnline && (
-            <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
-              <WifiOff className="w-3 h-3" />
-              <span className="sr-only sm:not-sr-only">Offline</span>
+            <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted px-3 py-1.5 rounded-full">
+              <WifiOff className="w-4 h-4" />
+              <span className="sr-only sm:not-sr-only font-medium">Offline</span>
             </div>
           )}
           {isOnline && (
-            <div className="flex items-center gap-1 text-xs text-secondary bg-secondary/10 px-2 py-1 rounded-full">
-              <Wifi className="w-3 h-3" />
-              <span className="sr-only sm:not-sr-only">Online</span>
+            <div className="flex items-center gap-1.5 text-sm text-secondary bg-secondary/10 px-3 py-1.5 rounded-full">
+              <Wifi className="w-4 h-4" />
+              <span className="sr-only sm:not-sr-only font-medium">Online</span>
             </div>
           )}
           <Button 
             variant="ghost" 
             size="icon" 
-            className="rounded-full w-9 h-9"
+            className="rounded-full w-11 h-11"
             onClick={toggleTheme}
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
             {isDark ? (
-              <Sun className="w-5 h-5 text-accent" />
+              <Sun className="w-6 h-6 text-accent" />
             ) : (
-              <Moon className="w-5 h-5 text-muted-foreground" />
+              <Moon className="w-6 h-6 text-muted-foreground" />
             )}
-            <span className="sr-only">Toggle theme</span>
           </Button>
           {showSearch && (
             <Button 
               variant="ghost" 
               size="icon" 
-              className="rounded-full w-9 h-9"
+              className="rounded-full w-11 h-11"
               onClick={onSearchClick}
+              aria-label="Search"
             >
-              <Search className="w-5 h-5 text-muted-foreground" />
-              <span className="sr-only">Search</span>
+              <Search className="w-6 h-6 text-muted-foreground" />
             </Button>
           )}
         </div>
