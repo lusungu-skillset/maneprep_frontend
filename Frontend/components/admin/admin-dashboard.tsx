@@ -2296,7 +2296,7 @@ export function AdminDashboard() {
       setIsSavingPastPaper(true)
       try {
         await createAdminPastPaper(adminKey, {
-          form: pastPaperForm.form as ManebFormValue,
+          form: Number(pastPaperForm.form) as ManebFormValue,
           year: parseInt(pastPaperForm.year, 10),
           season: pastPaperForm.season || undefined,
           title: pastPaperForm.title,
@@ -2377,7 +2377,7 @@ export function AdminDashboard() {
                   onValueChange={(value) =>
                     setPastPaperForm((current) => ({
                       ...current,
-                      form: value as ManebFormValue,
+                      form: value as '' | `${ManebFormValue}`,
                     }))
                   }
                 >
