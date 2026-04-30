@@ -18,14 +18,14 @@ interface OnboardingScreenProps {
 const slides = [
   {
     title: "Welcome to MANEB Prep",
-    description: "Your companion for MANEB exam success.",
+    description: "Your study partner for exam success. Practice anytime, anywhere.",
     image: "/images/hero-students.jpg",
     icon: BookOpen,
     color: "bg-primary",
   },
   {
-    title: "Test Your Knowledge",
-    description: "Use Real subjects, topics, and questions.",
+    title: "Real Questions",
+    description: "Study with real subjects and topics from your syllabus.",
     image: "/images/subject-math.jpg",
     icon: Download,
     color: "bg-secondary",
@@ -63,68 +63,68 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
       <div className="min-h-screen bg-background flex flex-col">
         <div className="flex-1 px-6 py-8 flex flex-col max-w-lg mx-auto w-full">
           {/* Logo */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-8">
             <Image
               src="/images/logo.jpg"
               alt="MANEB Prep"
-              width={80}
-              height={80}
-              className="rounded-2xl"
+              width={88}
+              height={88}
+              className="rounded-2xl shadow-lg"
             />
           </div>
 
-          <h1 className="text-student-2xl text-foreground text-center mb-2">
+          <h1 className="text-3xl font-bold text-foreground text-center mb-3">
             Set Up Your Profile
           </h1>
-          <p className="text-muted-foreground text-student-base text-center mb-8">
-            Tell us about yourself and choose the form you want to study.
+          <p className="text-lg text-muted-foreground text-center mb-10 leading-relaxed">
+            Tell us about yourself so we can personalize your learning.
           </p>
 
-          <div className="space-y-5 flex-1">
+          <div className="space-y-6 flex-1">
             {/* Name */}
-            <div className="space-y-2">
-              <label className="text-student-sm font-medium text-foreground">Your Name</label>
+            <div className="space-y-3">
+              <label className="text-base font-semibold text-foreground">Your Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
-                className="w-full px-4 py-3 rounded-xl bg-card border border-border text-student-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-5 py-4 rounded-2xl bg-card border-2 border-border text-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
               />
             </div>
 
             {/* School */}
-            <div className="space-y-2">
-              <label className="text-student-sm font-medium text-foreground">School Name</label>
+            <div className="space-y-3">
+              <label className="text-base font-semibold text-foreground">School Name</label>
               <input
                 type="text"
                 value={school}
                 onChange={(e) => setSchool(e.target.value)}
                 placeholder="Enter your school"
-                className="w-full px-4 py-3 rounded-xl bg-card border border-border text-student-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full px-5 py-4 rounded-2xl bg-card border-2 border-border text-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
               />
             </div>
 
             {/* Form Level */}
-            <div className="space-y-2">
-              <label className="text-student-sm font-medium text-foreground">Select Your Form</label>
-              <p className="text-student-xs text-muted-foreground">
-                Backend content is now available for Form 1 through Form 4.
+            <div className="space-y-3">
+              <label className="text-base font-semibold text-foreground">Select Your Class</label>
+              <p className="text-base text-muted-foreground">
+                Choose your current form to see the right content.
               </p>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4 mt-4">
                 {formOptions.map((form) => (
                   <button
                     key={form}
                     onClick={() => setSelectedForm(form)}
                     className={cn(
-                      "px-4 py-3 rounded-xl border-2 font-medium transition-all",
+                      "px-5 py-4 rounded-2xl border-2 font-semibold text-lg transition-all min-h-[56px]",
                       selectedForm === form
                         ? "border-primary bg-primary/10 text-primary"
-                        : "border-border bg-card text-muted-foreground"
+                        : "border-border bg-card text-muted-foreground hover:border-primary/50"
                     )}
                   >
                     <div className="flex items-center justify-center gap-2">
-                      {selectedForm === form && <Check className="w-4 h-4" />}
+                      {selectedForm === form && <Check className="w-5 h-5" />}
                       {form}
                     </div>
                   </button>
@@ -136,10 +136,10 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
           <Button
             onClick={handleComplete}
             disabled={!isFormValid}
-            className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90 mt-6"
+            className="w-full h-16 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 mt-8 shadow-lg"
           >
             Start Learning
-            <ChevronRight className="w-5 h-5 ml-2" />
+            <ChevronRight className="w-6 h-6 ml-2" />
           </Button>
         </div>
       </div>
@@ -156,14 +156,14 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
         <Button
           variant="ghost"
           onClick={() => setShowSetup(true)}
-          className="text-muted-foreground"
+          className="text-base text-muted-foreground font-semibold hover:text-foreground"
         >
           Skip
         </Button>
       </div>
 
       {/* Image section */}
-      <div className="relative h-[45vh] w-full overflow-hidden">
+      <div className="relative h-[50vh] w-full overflow-hidden">
         <Image
           src={slide.image}
           alt={slide.title}
@@ -177,33 +177,34 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
       {/* Content section */}
       <div className="flex-1 px-6 py-8 flex flex-col">
         <div className={cn(
-          "w-14 h-14 rounded-2xl flex items-center justify-center mb-6",
+          "w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg",
           slide.color
         )}>
-          <Icon className="w-7 h-7 text-white" />
+          <Icon className="w-8 h-8 text-white" />
         </div>
 
-        <h1 className="text-student-2xl text-foreground mb-3 text-balance">
+        <h1 className="text-3xl font-bold text-foreground mb-4 text-balance">
           {slide.title}
         </h1>
-        <p className="text-muted-foreground text-student-base leading-relaxed text-pretty">
+        <p className="text-lg text-muted-foreground leading-relaxed text-pretty">
           {slide.description}
         </p>
 
         <div className="flex-1" />
 
         {/* Dots indicator */}
-        <div className="flex items-center justify-center gap-2 mb-6">
+        <div className="flex items-center justify-center gap-3 mb-8">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={cn(
-                "w-2 h-2 rounded-full transition-all duration-300",
+                "h-3 rounded-full transition-all duration-300",
                 index === currentSlide
-                  ? "w-8 bg-primary"
-                  : "bg-muted-foreground/30"
+                  ? "w-10 bg-primary"
+                  : "w-3 bg-muted-foreground/30 hover:bg-muted-foreground/50"
               )}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
@@ -211,10 +212,10 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
         {/* Action button */}
         <Button
           onClick={handleNext}
-          className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90"
+          className="w-full h-16 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg"
         >
           {currentSlide === slides.length - 1 ? "Set Up Profile" : "Continue"}
-          <ChevronRight className="w-5 h-5 ml-2" />
+          <ChevronRight className="w-6 h-6 ml-2" />
         </Button>
       </div>
     </div>

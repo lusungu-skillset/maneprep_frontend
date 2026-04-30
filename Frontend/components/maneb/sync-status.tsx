@@ -17,33 +17,33 @@ export function SyncStatus({
 }: SyncStatusProps) {
   return (
     <div className={cn(
-      "flex items-center justify-between bg-card rounded-2xl p-4 border border-border",
+      "flex items-center justify-between bg-card rounded-2xl p-5 border border-border",
       className
     )}>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <div className={cn(
-          "w-10 h-10 rounded-xl flex items-center justify-center",
+          "w-12 h-12 rounded-2xl flex items-center justify-center",
           isSyncing ? "bg-primary/10" : "bg-secondary/10"
         )}>
           {isSyncing ? (
-            <RefreshCw className="w-5 h-5 text-primary animate-spin" />
+            <RefreshCw className="w-6 h-6 text-primary animate-spin" />
           ) : (
-            <Cloud className="w-5 h-5 text-secondary" />
+            <Cloud className="w-6 h-6 text-secondary" />
           )}
         </div>
         <div>
-          <p className="text-sm font-medium text-foreground">
-            {isSyncing ? "Syncing..." : "Synced"}
+          <p className="text-base font-semibold text-foreground">
+            {isSyncing ? "Updating..." : "Up to date"}
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground mt-0.5">
             {lastSynced
-              ? `Last synced ${formatRelativeDateTime(lastSynced)}`
-              : "Waiting for backend data"}
+              ? `Last updated ${formatRelativeDateTime(lastSynced)}`
+              : "Loading your content..."}
           </p>
         </div>
       </div>
       <CheckCircle2 className={cn(
-        "w-5 h-5",
+        "w-6 h-6",
         isSyncing ? "text-muted-foreground" : "text-secondary"
       )} />
     </div>
