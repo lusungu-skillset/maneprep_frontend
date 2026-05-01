@@ -49,26 +49,52 @@ export async function apiFetch<T>(
   path: string,
   init: RequestInit = {},
 ): Promise<T> {
-  const response = await fetch(buildApiUrl(path), {
-    ...init,
-    headers: {
-      Accept: 'application/json',
-      ...init.headers,
-    },
-  });
+  const isClient = typeof window !== 'undefined';
+  const isGet = !init.method || init.method.toUpperCase() === 'GET';
+  const cacheKey = `manebCache:${path}`;
 
-  const contentType = response.headers.get('content-type') ?? '';
-  const payload = contentType.includes('application/json')
-    ? await response.json()
-    : await response.text();
+  try {
+    const response = await fetch(buildApiUrl(path), {
+      ...init,
+      headers: {
+        Accept: 'application/json',
+        ...init.headers,
+      },
+    });
 
-  if (!response.ok) {
-    throw new ApiError(
-      extractErrorMessage(payload, `Request failed with status ${response.status}.`),
-      response.status,
-      payload,
-    );
+    const contentType = response.headers.get('content-type') ?? '';
+    const payload = contentType.includes('application/json')
+      ? await response.json()
+      : await response.text();
+
+    if (!response.ok) {
+      throw new ApiError(
+        extractErrorMessage(payload, `Request failed with status ${response.status}.`),
+        response.status,
+        payload,
+      );
+    }
+
+    if (isClient && isGet) {
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify(payload));
+      } catch (e) {
+        console.warn('Failed to cache API response:', e);
+      }
+    }
+
+    return payload as T;
+  } catch (error) {
+    if (isClient && isGet) {
+      try {
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+          return JSON.parse(cached) as T;
+        }
+      } catch (e) {
+        console.warn('Failed to read API cache:', e);
+      }
+    }
+    throw error;
   }
-
-  return payload as T;
 }

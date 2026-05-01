@@ -230,7 +230,7 @@ export function QuizUI({ questions, topic, onClose, onComplete }: QuizUIProps) {
                   )}>
                     {String.fromCharCode(65 + index)}
                   </div>
-                  <span className="text-lg leading-relaxed">{option}</span>
+                  <span className="flex-1 text-lg leading-relaxed break-words whitespace-normal text-left">{option}</span>
                 </div>
               </button>
             )
@@ -252,13 +252,13 @@ export function QuizUI({ questions, topic, onClose, onComplete }: QuizUIProps) {
                         <XCircle className="w-6 h-6 text-destructive" />
                         <p className="text-lg font-bold text-destructive">Not quite right</p>
                       </div>
-                      <p className="text-base text-foreground mb-4 leading-relaxed">
+                      <p className="text-base text-foreground mb-4 leading-relaxed break-words whitespace-normal">
                         <span className="font-semibold">The correct answer is:</span> {currentQuestion.correctAnswer}
                       </p>
                       {currentQuestion.explanation && (
                         <div className="bg-background/50 rounded-xl p-4">
                           <p className="font-semibold text-foreground mb-2 text-base">Why?</p>
-                          <p className="text-base text-muted-foreground leading-relaxed">
+                          <p className="text-base text-muted-foreground leading-relaxed break-words whitespace-normal">
                             {currentQuestion.explanation}
                           </p>
                         </div>
@@ -274,7 +274,7 @@ export function QuizUI({ questions, topic, onClose, onComplete }: QuizUIProps) {
                       {currentQuestion.explanation && (
                         <div className="bg-background/50 rounded-xl p-4">
                           <p className="font-semibold text-foreground mb-2 text-base">Learn more:</p>
-                          <p className="text-base text-muted-foreground leading-relaxed">
+                          <p className="text-base text-muted-foreground leading-relaxed break-words whitespace-normal">
                             {currentQuestion.explanation}
                           </p>
                         </div>
