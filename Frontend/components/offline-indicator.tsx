@@ -37,8 +37,13 @@ export function OfflineIndicator() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 mx-auto max-w-6xl">
-      <div className="flex items-center gap-2 border-t border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800 dark:border-orange-900 dark:bg-orange-950 dark:text-orange-200 md:rounded-t-lg md:border-t">
-        <WifiOff className="h-4 w-4 flex-shrink-0" />
+      <div
+        className="flex items-center gap-2 border-t border-orange-400 bg-orange-200 px-4 py-3 text-base font-bold text-orange-900 shadow-lg dark:border-orange-600 dark:bg-orange-900 dark:text-orange-100 md:rounded-t-lg md:border-t"
+        style={{
+          textShadow: '0 1px 4px rgba(0,0,0,0.10)',
+        }}
+      >
+        <WifiOff className="h-5 w-5 flex-shrink-0" />
         <span className="flex-1">
           You&apos;re offline. Using cached data where available.
         </span>
