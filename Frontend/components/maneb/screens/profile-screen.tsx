@@ -65,8 +65,7 @@ export function ProfileScreen({
   ]
 
   return (
-    <div className="pb-28 max-w-lg mx-auto">
-      {/* Profile Header */}
+    <div className="pb-28">
       <div className="relative h-32 w-full overflow-hidden">
         <Image
           src="/images/hero-students.jpg"
@@ -77,9 +76,8 @@ export function ProfileScreen({
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-background" />
       </div>
 
-      <div className="px-5 -mt-14 relative z-10">
-        {/* Profile Card */}
-        <section className="bg-card rounded-3xl p-6 shadow-lg border border-border text-center mb-6 relative">
+      <div className="relative z-10 mx-auto -mt-14 max-w-5xl px-4 sm:px-6 lg:px-8">
+        <section className="relative mb-6 rounded-[2rem] border border-border/70 bg-card/92 p-6 text-center shadow-lg">
           <button 
             onClick={onNavigateToEditProfile}
             className="absolute top-4 right-4 w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
@@ -99,7 +97,6 @@ export function ProfileScreen({
           </span>
         </section>
 
-        {/* Privacy Notice */}
         <section className="mb-6">
           <div className="flex items-center gap-4 px-5 py-4 rounded-2xl bg-secondary/10 border border-secondary/20">
             <Shield className="w-6 h-6 text-secondary flex-shrink-0" />
@@ -109,23 +106,21 @@ export function ProfileScreen({
           </div>
         </section>
 
-        {/* Sync Status */}
         <section className="mb-6">
           <div className="flex items-center gap-4 px-5 py-4 rounded-2xl bg-primary/5 border border-primary/20">
             <Trophy className="w-6 h-6 text-primary flex-shrink-0" />
             <div>
-              <p className="text-base font-semibold text-foreground">Progress Saved</p>
+              <p className="text-base font-semibold text-foreground">Progress saved</p>
               <p className="text-sm text-muted-foreground mt-0.5">
-                {syncedAnswerCount} answers recorded {lastSyncedAt ? ` - Last saved ${formatRelativeDateTime(lastSyncedAt)}` : ''}
+                {syncedAnswerCount} answers saved {lastSyncedAt ? ` - Last saved ${formatRelativeDateTime(lastSyncedAt)}` : ''}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Stats */}
         <section className="mb-6">
-          <h3 className="text-lg font-bold text-foreground mb-4">Your Progress</h3>
-          <div className="grid grid-cols-3 gap-4">
+          <h3 className="mb-4 text-xl font-bold text-foreground">Your Progress</h3>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {stats.map((stat) => {
               const Icon = stat.icon
               return (
@@ -142,10 +137,9 @@ export function ProfileScreen({
           </div>
         </section>
 
-        {/* Recent Activity */}
         {quizHistory.length > 0 && (
           <section className="mb-6">
-            <h3 className="text-lg font-bold text-foreground mb-4">
+            <h3 className="mb-4 text-xl font-bold text-foreground">
               Recent Quizzes
             </h3>
             <div className="bg-card rounded-2xl border border-border overflow-hidden">
@@ -173,9 +167,8 @@ export function ProfileScreen({
           </section>
         )}
 
-        {/* Menu */}
         <section>
-          <h3 className="text-lg font-bold text-foreground mb-4">Options</h3>
+          <h3 className="mb-4 text-xl font-bold text-foreground">Options</h3>
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
             <button
               onClick={onNavigateToSettings}
@@ -210,7 +203,6 @@ export function ProfileScreen({
           </div>
         </section>
 
-        {/* Logout */}
         <Button 
           variant="outline" 
           onClick={onLogout}

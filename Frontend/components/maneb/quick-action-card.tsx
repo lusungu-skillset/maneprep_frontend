@@ -23,15 +23,14 @@ export function QuickActionCard({
     <button
       onClick={onClick}
       className={cn(
-        "group rounded-2xl p-5 text-left w-full transition-all duration-300 active:scale-[0.98] hover:shadow-xl hover:-translate-y-0.5 relative overflow-hidden min-h-[72px]",
+        "group relative min-h-[88px] w-full overflow-hidden rounded-[1.75rem] p-5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]",
         color
       )}
     >
-      {/* Animated shine effect */}
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       
       <div className="flex items-center gap-4 relative">
-        <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm transition-transform group-hover:scale-110">
           <Icon className="w-7 h-7 text-white" />
         </div>
         <div className="flex-1">

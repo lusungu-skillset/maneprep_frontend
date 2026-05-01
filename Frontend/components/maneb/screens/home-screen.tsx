@@ -61,9 +61,8 @@ export function HomeScreen({
   dailyChallenge = null,
 }: HomeScreenProps) {
   return (
-    <div className="pb-28 max-w-lg mx-auto">
-      {/* Hero Section */}
-      <div className="relative h-52 w-full overflow-hidden">
+    <div className="pb-32">
+      <div className="relative h-[280px] w-full overflow-hidden sm:h-[340px] lg:h-[380px]">
         <Image
           src="/images/hero-students.jpg"
           alt="Students studying"
@@ -72,12 +71,14 @@ export function HomeScreen({
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-background" />
-        <div className="absolute bottom-6 left-5 right-5">
-          <p className="text-base text-white/90 font-medium">Welcome back,</p>
-          <h2 className="text-3xl font-bold text-white drop-shadow-lg mt-1">{userProfile.name}</h2>
+        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-4 pb-8 sm:px-6 lg:px-8">
+          <p className="text-base font-medium text-white/90">Welcome back,</p>
+          <h2 className="mt-2 max-w-2xl text-3xl font-bold text-white drop-shadow-lg sm:text-4xl">
+            {userProfile.name}
+          </h2>
           <button 
             onClick={onNavigateToFormSelector}
-            className="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full bg-white/25 hover:bg-white/35 text-white text-sm font-semibold transition-colors min-h-[44px]"
+            className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/30"
           >
             {userProfile.form}
             <ChevronRight className="w-4 h-4" />
@@ -85,11 +86,10 @@ export function HomeScreen({
         </div>
       </div>
 
-      <div className="px-5 py-6 space-y-8">
+      <div className="mx-auto max-w-6xl space-y-10 px-4 py-6 sm:px-6 lg:px-8">
         <SyncStatus lastSynced={lastSynced ?? undefined} />
 
-        {/* Quick Actions */}
-        <section>
+        <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-4">
             <QuickActionCard
               title="Start Practice"
@@ -100,7 +100,7 @@ export function HomeScreen({
             />
             <div className="grid grid-cols-2 gap-4">
               <QuickActionCard
-                title="Browse All"
+                title="Browse"
                 description="View subjects"
                 icon={Download}
                 color="bg-gradient-to-r from-secondary to-secondary/80"
@@ -115,12 +115,42 @@ export function HomeScreen({
               />
             </div>
           </div>
+          <div className="rounded-[2rem] bg-gradient-to-r from-primary to-primary/85 p-6 text-white shadow-[0_24px_48px_-28px_rgba(37,99,235,0.9)]">
+            <div className="flex items-center gap-5">
+              <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-2xl shadow-md">
+                <Image
+                  src="/images/subject-science.jpg"
+                  alt="Daily challenge"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/85">
+                  Daily Challenge
+                </p>
+                <h4 className="mt-1 text-xl font-bold text-balance sm:text-2xl">
+                  {dailyChallenge ? dailyChallenge.label : `${userProfile.form} Questions`}
+                </h4>
+                <p className="mt-2 text-base text-white/90">
+                  {dailyChallenge
+                    ? `${dailyChallenge.questionCount} questions to answer`
+                    : "Pick a subject to get started"}
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={dailyChallenge ? dailyChallenge.onStart : onNavigateToSubjects}
+              className="mt-5 min-h-[54px] w-full rounded-2xl bg-white/20 py-4 text-lg font-bold transition-colors hover:bg-white/30"
+            >
+              {dailyChallenge ? "Start Challenge" : "Browse Subjects"}
+            </button>
+          </div>
         </section>
 
-        {/* Subjects Grid */}
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-foreground">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <h3 className="text-xl font-bold text-foreground sm:text-2xl">
               {userProfile.form} Subjects
             </h3>
             <button 
@@ -131,7 +161,7 @@ export function HomeScreen({
             </button>
           </div>
           {subjects.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {subjects.slice(0, 4).map((subject) => (
                 <SubjectCard
                   key={subject.id}
@@ -151,12 +181,11 @@ export function HomeScreen({
           )}
         </section>
 
-        {/* More Features */}
         <section>
-          <h3 className="text-lg font-bold text-foreground mb-4">
-            More Features
+          <h3 className="mb-5 text-xl font-bold text-foreground sm:text-2xl">
+            More to Explore
           </h3>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
             <button 
               onClick={onNavigateToAchievements}
               className="bg-card rounded-2xl p-5 shadow-sm border border-border text-center transition-all duration-200 hover:shadow-md hover:border-primary/30 active:scale-[0.98]"
@@ -192,41 +221,6 @@ export function HomeScreen({
                 <Calendar className="w-7 h-7 text-primary" />
               </div>
               <p className="text-base font-semibold text-foreground">Past Papers</p>
-            </button>
-          </div>
-        </section>
-
-        {/* Daily Challenge */}
-        <section>
-          <div className="bg-gradient-to-r from-primary to-primary/85 rounded-3xl p-6 text-white shadow-lg">
-            <div className="flex items-center gap-5">
-              <div className="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-md">
-                <Image
-                  src="/images/subject-science.jpg"
-                  alt="Daily challenge"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-white/85 uppercase tracking-wider font-semibold">
-                  Daily Challenge
-                </p>
-                <h4 className="text-xl font-bold mt-1 text-balance">
-                  {dailyChallenge ? dailyChallenge.label : `${userProfile.form} Questions`}
-                </h4>
-                <p className="text-base text-white/90 mt-1">
-                  {dailyChallenge
-                    ? `${dailyChallenge.questionCount} questions to answer`
-                    : "Pick a subject to start"}
-                </p>
-              </div>
-            </div>
-            <button 
-              onClick={dailyChallenge ? dailyChallenge.onStart : onNavigateToSubjects}
-              className="mt-5 w-full bg-white/25 hover:bg-white/35 rounded-2xl py-4 text-lg font-bold transition-colors min-h-[52px]"
-            >
-              {dailyChallenge ? "Start Challenge" : "Browse Subjects"}
             </button>
           </div>
         </section>

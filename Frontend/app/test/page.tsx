@@ -30,7 +30,7 @@ export default function TestPage() {
         }
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : 'Unable to reach the API.'
+          error instanceof Error ? error.message : 'We could not reach the study service.'
 
         if (isMounted) {
           setState({ status: 'error', message })
@@ -50,18 +50,13 @@ export default function TestPage() {
       <div className="mx-auto flex max-w-3xl flex-col gap-6">
         <header className="space-y-2">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Backend connection
+            App check
           </p>
           <h1 className="text-3xl font-semibold text-foreground">
-            API health check
+            Study service check
           </h1>
           <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-            This page calls the backend at runtime with
-            {' '}
-            <code className="rounded bg-background px-1.5 py-0.5 text-foreground">
-              {process.env.NEXT_PUBLIC_API_URL}
-            </code>
-            .
+            This page checks whether the app can reach the study service and get a response.
           </p>
         </header>
 
@@ -70,11 +65,7 @@ export default function TestPage() {
             <div className="space-y-2">
               <p className="text-sm font-medium text-foreground">Loading</p>
               <p className="text-sm text-muted-foreground">
-                Requesting
-                {' '}
-                <code>/api/health</code>
-                {' '}
-                from the backend.
+                Checking the study service now.
               </p>
             </div>
           )}
@@ -82,7 +73,7 @@ export default function TestPage() {
           {state.status === 'success' && (
             <div className="space-y-4">
               <p className="text-sm font-medium text-foreground">
-                Backend responded successfully.
+                The study service responded successfully.
               </p>
               <pre className="overflow-x-auto rounded-md bg-muted p-4 text-sm text-foreground">
                 {JSON.stringify(state.data, null, 2)}
@@ -93,7 +84,7 @@ export default function TestPage() {
           {state.status === 'error' && (
             <div className="space-y-3">
               <p className="text-sm font-medium text-destructive">
-                Backend request failed.
+                The study service could not be reached.
               </p>
               <p className="text-sm text-muted-foreground">{state.message}</p>
             </div>

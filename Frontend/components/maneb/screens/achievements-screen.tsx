@@ -11,8 +11,8 @@ export function AchievementsScreen({ onBack }: AchievementsScreenProps) {
   return (
     <BackendStatusPanel
       title="Achievements"
-      heading="No fabricated badges"
-      message="Achievement rules are not backed by the API yet, so the frontend no longer shows sample trophies or progress counters here."
+      heading="Badges are coming soon"
+      message="This page will show your badges here when they are ready."
       onBack={onBack}
       icon={Trophy}
     />

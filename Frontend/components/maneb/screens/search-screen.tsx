@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, Search, X, Database } from "lucide-react"
+import { ArrowLeft, Search, X, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export interface SearchResult {
@@ -38,8 +38,8 @@ export function SearchScreen({
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-4 py-3">
-        <div className="flex items-center gap-3 max-w-lg mx-auto">
+      <header className="sticky top-0 z-50 border-b border-border/70 bg-card/95 px-4 py-4 backdrop-blur-md sm:px-6">
+        <div className="mx-auto flex max-w-5xl items-center gap-3">
           <Button variant="ghost" size="icon" onClick={onBack} className="rounded-full flex-shrink-0">
             <ArrowLeft className="w-5 h-5" />
           </Button>
@@ -49,9 +49,9 @@ export function SearchScreen({
               type="text"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search subjects, topics, quizzes..."
+              placeholder="Search subjects, topics, or quizzes"
               autoFocus
-              className="w-full pl-10 pr-10 py-2.5 bg-muted rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="w-full rounded-2xl border border-border/70 bg-card/90 py-3 pl-10 pr-10 text-base text-foreground placeholder:text-muted-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             {query && (
               <button
@@ -65,14 +65,14 @@ export function SearchScreen({
         </div>
       </header>
 
-      <main className="px-4 py-6 pb-24 max-w-lg mx-auto">
+      <main className="mx-auto max-w-5xl px-4 py-6 pb-24 sm:px-6">
         {query.length > 0 && (
           <section className="mb-6">
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
               Results ({filteredResults.length})
             </h2>
             {filteredResults.length > 0 ? (
-              <div className="space-y-2">
+              <div className="grid gap-3 lg:grid-cols-2">
                 {filteredResults.map((result) => (
                   <button
                     key={result.id}
@@ -87,8 +87,8 @@ export function SearchScreen({
                 ))}
               </div>
             ) : (
-              <p className="text-center text-muted-foreground py-8">
-                No backend results found for &quot;{query}&quot;.
+              <p className="py-8 text-center text-muted-foreground">
+                No results found for &quot;{query}&quot;.
               </p>
             )}
           </section>
@@ -97,29 +97,29 @@ export function SearchScreen({
         {query.length === 0 && (
           <section>
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-              Available from Backend
+              Ready to Explore
             </h2>
             {featuredResults.length > 0 ? (
-              <div className="space-y-2">
+              <div className="grid gap-3 lg:grid-cols-2">
                 {featuredResults.map((result) => (
                   <button
                     key={result.id}
                     onClick={() => onResultSelect?.(result)}
-                    className="w-full flex items-center gap-3 p-3 bg-card border border-border rounded-xl hover:border-primary/30 transition-colors"
+                    className="w-full rounded-2xl border border-border/70 bg-card/92 p-4 transition-colors hover:border-primary/30"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <Database className="w-4 h-4 text-primary" />
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+                      <Sparkles className="w-5 h-5 text-primary" />
                     </div>
                     <div className="text-left">
                       <p className="font-medium text-foreground">{result.title}</p>
-                      <p className="text-xs text-muted-foreground">{result.subtitle}</p>
+                      <p className="text-sm text-muted-foreground">{result.subtitle}</p>
                     </div>
                   </button>
                 ))}
               </div>
             ) : (
-              <div className="bg-card rounded-2xl border border-border p-5 text-sm text-muted-foreground">
-                Load subjects from the backend to search live content.
+              <div className="rounded-2xl border border-border/70 bg-card/92 p-5 text-sm text-muted-foreground">
+                Open your subjects first, then come back to search your study content.
               </div>
             )}
           </section>

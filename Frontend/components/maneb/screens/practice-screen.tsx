@@ -41,10 +41,10 @@ export function PracticeScreen({
   )
 
   return (
-    <div className="px-5 py-6 pb-28 space-y-8 max-w-lg mx-auto">
+    <div className="mx-auto max-w-6xl space-y-8 px-4 py-6 pb-28 sm:px-6 lg:px-8">
       <section className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Practice</h2>
+          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Practice</h2>
           <p className="text-base text-muted-foreground mt-1">
             Test your knowledge with real questions
           </p>
@@ -83,11 +83,11 @@ export function PracticeScreen({
       </section>
 
       <section>
-        <h3 className="text-lg font-bold text-foreground mb-4">
+        <h3 className="mb-4 text-xl font-bold text-foreground">
           {activeFilter === "All" ? `All ${userForm} Quizzes` : `${activeFilter} Quizzes`}
           {activeFilter !== "All" && ` (${filteredQuizzes.length})`}
         </h3>
-        <div className="space-y-4">
+        <div className="grid gap-4 xl:grid-cols-2">
           {filteredQuizzes.length > 0 ? (
             filteredQuizzes.map((quiz) => (
               <QuizCard

@@ -11,8 +11,8 @@ export function DownloadsScreen({ onBack }: DownloadsScreenProps) {
   return (
     <BackendStatusPanel
       title="Downloads"
-      heading="Offline cache is disabled"
-      message="The app is testing directly against the backend right now, so it does not invent local download records or storage totals."
+      heading="Saved items are not ready yet"
+      message="This page will list your saved study items here when they are ready."
       onBack={onBack}
       icon={Download}
     />

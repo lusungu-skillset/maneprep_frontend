@@ -17,7 +17,7 @@ export function SyncStatus({
 }: SyncStatusProps) {
   return (
     <div className={cn(
-      "flex items-center justify-between bg-card rounded-2xl p-5 border border-border",
+      "flex items-center justify-between gap-4 rounded-[1.5rem] border border-border/70 bg-card/90 p-5 shadow-sm",
       className
     )}>
       <div className="flex items-center gap-4">
@@ -33,12 +33,12 @@ export function SyncStatus({
         </div>
         <div>
           <p className="text-base font-semibold text-foreground">
-            {isSyncing ? "Updating..." : "Up to date"}
+            {isSyncing ? "Updating your work..." : "Everything looks ready"}
           </p>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="mt-0.5 text-sm text-muted-foreground">
             {lastSynced
               ? `Last updated ${formatRelativeDateTime(lastSynced)}`
-              : "Loading your content..."}
+              : "Loading your study content..."}
           </p>
         </div>
       </div>

@@ -219,7 +219,7 @@ function buildSubjects(
           ? Math.round((attemptedCount / questionCount) * 100)
           : 0,
       questionCount,
-      description: `${topics.length} topics and ${questionCount} backend questions are available for ${bundle.subject.name}.`,
+      description: `${topics.length} topics and ${questionCount} practice questions are ready for ${bundle.subject.name}.`,
       icon: presentation.icon,
       color: presentation.color,
       image: presentation.image,
@@ -287,7 +287,7 @@ function buildSearchResults(subjects: AppSubject[]): SearchResult[] {
         id: `quiz-${topic.id}`,
         title: `${topic.name} Quiz`,
         type: "quiz",
-        subtitle: `${subject.name} - ${topic.questionCount} live questions`,
+        subtitle: `${subject.name} - ${topic.questionCount} questions`,
         subjectId: subject.id,
         topicId: topic.id,
       })
@@ -388,7 +388,7 @@ export function MANEBApp() {
         setBackendError(
           error instanceof Error
             ? error.message
-            : "Unable to load backend content.",
+            : "Unable to load your study content.",
         )
       } finally {
         if (isActive) {
@@ -423,6 +423,9 @@ export function MANEBApp() {
       .find((topic) => topic.progress < 100) ??
     subjects.flatMap((subject) => subject.topics)[0] ??
     null
+  const friendlyErrorMessage = backendError
+    ? "We could not refresh your study content right now. Please try again."
+    : null
 
   const handleOnboardingComplete = (profile: {
     name: string
@@ -514,7 +517,7 @@ export function MANEBApp() {
       setBackendError(
         error instanceof Error
           ? error.message
-          : "Unable to save quiz progress.",
+          : "Unable to save your progress.",
       )
     }
   }
@@ -579,7 +582,7 @@ export function MANEBApp() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="mt-4 text-muted-foreground">Loading...</p>
+          <p className="mt-4 text-muted-foreground">Opening your study space...</p>
         </div>
       </div>
     )
@@ -609,7 +612,7 @@ export function MANEBApp() {
         <div className="bg-card border border-border rounded-3xl shadow-lg p-8 max-w-md text-center">
           <h2 className="text-2xl font-bold text-foreground">Something went wrong</h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            We could not load your content. Please check your internet connection and try again.
+            {friendlyErrorMessage}
           </p>
           <button
             onClick={() => window.location.reload()}
@@ -886,11 +889,11 @@ export function MANEBApp() {
         isOnline={isOnline}
         onSearchClick={() => setCurrentScreen("search")}
       />
-      <main className="pb-20">
-        {backendError && (
-          <div className="mx-auto max-w-lg px-4 pt-4">
+      <main className="pb-24 md:pb-28">
+        {friendlyErrorMessage && (
+          <div className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 lg:px-8">
             <div className="rounded-2xl border border-destructive/20 bg-destructive/5 px-4 py-3 text-sm text-destructive">
-              {backendError}
+              {friendlyErrorMessage}
             </div>
           </div>
         )}

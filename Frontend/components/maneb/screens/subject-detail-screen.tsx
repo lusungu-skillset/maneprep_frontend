@@ -66,7 +66,7 @@ export function SubjectDetailScreen({
         </Button>
       </div>
 
-      <div className="px-5 -mt-14 relative z-10 pb-28">
+      <div className="relative z-10 mx-auto -mt-14 max-w-5xl px-4 pb-28 sm:px-6 lg:px-8">
         <div className="bg-card rounded-3xl p-6 shadow-lg border border-border mb-6">
           <div className="flex items-start gap-5">
             <div
@@ -109,10 +109,10 @@ export function SubjectDetailScreen({
           </div>
         </div>
 
-        <h2 className="text-lg font-bold text-foreground mb-4">
+        <h2 className="mb-4 text-xl font-bold text-foreground">
           Topics ({subject.topics.length})
         </h2>
-        <div className="space-y-4">
+        <div className="grid gap-4 xl:grid-cols-2">
           {subject.topics.map((topic, index) => (
             <button
               key={topic.id}

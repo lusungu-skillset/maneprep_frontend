@@ -16,35 +16,42 @@ export function Header({ title, showSearch = true, isOnline = true, onSearchClic
   const { isDark, toggleTheme } = useTheme()
 
   return (
-    <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-5 py-4 shadow-sm">
-      <div className="flex items-center justify-between max-w-lg mx-auto">
-        <div className="flex items-center gap-3">
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-card/95 px-4 py-4 shadow-sm backdrop-blur-md sm:px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
           <Image
             src="/images/logo.jpg"
             alt="MANEB Prep"
-            width={40}
-            height={40}
-            className="rounded-xl"
+            width={44}
+            height={44}
+            className="rounded-2xl shadow-sm"
           />
-          <h1 className="text-xl font-bold text-foreground">{title}</h1>
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary/80">
+              Study App
+            </p>
+            <h1 className="truncate text-xl font-bold text-foreground sm:text-2xl">
+              {title}
+            </h1>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           {!isOnline && (
-            <div className="flex items-center gap-1.5 text-sm text-muted-foreground bg-muted px-3 py-1.5 rounded-full">
+            <div className="flex items-center gap-1.5 rounded-full border border-border/70 bg-muted px-3 py-2 text-sm text-muted-foreground">
               <WifiOff className="w-4 h-4" />
-              <span className="sr-only sm:not-sr-only font-medium">Offline</span>
+              <span className="sr-only lg:not-sr-only font-medium">Offline</span>
             </div>
           )}
           {isOnline && (
-            <div className="flex items-center gap-1.5 text-sm text-secondary bg-secondary/10 px-3 py-1.5 rounded-full">
+            <div className="hidden items-center gap-1.5 rounded-full border border-secondary/20 bg-secondary/10 px-3 py-2 text-sm text-secondary sm:flex">
               <Wifi className="w-4 h-4" />
-              <span className="sr-only sm:not-sr-only font-medium">Online</span>
+              <span className="font-medium">Ready</span>
             </div>
           )}
           <Button 
             variant="ghost" 
             size="icon" 
-            className="rounded-full w-11 h-11"
+            className="size-11 rounded-full border border-border/70 bg-background/70"
             onClick={toggleTheme}
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
@@ -58,7 +65,7 @@ export function Header({ title, showSearch = true, isOnline = true, onSearchClic
             <Button 
               variant="ghost" 
               size="icon" 
-              className="rounded-full w-11 h-11"
+              className="size-11 rounded-full border border-border/70 bg-background/70"
               onClick={onSearchClick}
               aria-label="Search"
             >

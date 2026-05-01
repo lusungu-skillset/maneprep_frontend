@@ -47,9 +47,8 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-5 py-4">
-        <div className="flex items-center gap-4 max-w-lg mx-auto">
+      <header className="sticky top-0 z-50 border-b border-border/70 bg-card/95 px-4 py-4 backdrop-blur-md sm:px-6">
+        <div className="mx-auto flex max-w-5xl items-center gap-4">
           <Button variant="ghost" size="icon" onClick={onBack} className="rounded-full w-11 h-11">
             <ArrowLeft className="w-6 h-6" />
           </Button>
@@ -63,8 +62,7 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
         </div>
       </header>
 
-      <main className="px-5 py-6 pb-28 max-w-lg mx-auto space-y-8">
-        {/* Account */}
+      <main className="mx-auto max-w-5xl space-y-8 px-4 py-6 pb-28 sm:px-6">
         <section>
           <h2 className="text-lg font-bold text-foreground mb-4">
             Account
@@ -88,7 +86,6 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
           </div>
         </section>
 
-        {/* Preferences */}
         <section>
           <h2 className="text-lg font-bold text-foreground mb-4">
             Preferences
@@ -162,7 +159,7 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
                 <div>
                   <p className="font-semibold text-foreground text-base">Dark Mode</p>
                   <p className="text-sm text-muted-foreground mt-0.5">
-                    {isDark ? "Switch to light mode" : "Easier on your eyes at night"}
+                    {isDark ? "Use the brighter look" : "Use the darker look"}
                   </p>
                 </div>
               </div>
@@ -183,7 +180,6 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
           </div>
         </section>
 
-        {/* Offline */}
         <section>
           <h2 className="text-lg font-bold text-foreground mb-4">
             Saved Content
@@ -234,7 +230,6 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
           </div>
         </section>
 
-        {/* Support */}
         <section>
           <h2 className="text-lg font-bold text-foreground mb-4">
             Support
@@ -264,7 +259,6 @@ export function SettingsScreen({ onBack, onNavigateToDownloads, onNavigateToHelp
           </div>
         </section>
 
-        {/* App Info */}
         <div className="text-center pt-6">
           <p className="text-base text-muted-foreground font-medium">MANEB Prep v1.0.0</p>
           <p className="text-sm text-muted-foreground mt-2">Made with love for Malawian students</p>

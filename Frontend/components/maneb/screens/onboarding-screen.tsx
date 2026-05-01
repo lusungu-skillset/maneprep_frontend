@@ -18,14 +18,14 @@ interface OnboardingScreenProps {
 const slides = [
   {
     title: "Welcome to MANEB Prep",
-    description: "Your study partner for exam success. Practice anytime, anywhere.",
+    description: "Your study partner for exam success. Practice anytime and keep growing every day.",
     image: "/images/hero-students.jpg",
     icon: BookOpen,
     color: "bg-primary",
   },
   {
     title: "Real Questions",
-    description: "Study with real subjects and topics from your syllabus.",
+    description: "Study with subjects, topics, and quizzes that match your learning.",
     image: "/images/subject-math.jpg",
     icon: Download,
     color: "bg-secondary",
@@ -61,8 +61,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
   if (showSetup) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        <div className="flex-1 px-6 py-8 flex flex-col max-w-lg mx-auto w-full">
-          {/* Logo */}
+        <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8 sm:px-6">
           <div className="flex justify-center mb-8">
             <Image
               src="/images/logo.jpg"
@@ -81,7 +80,6 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
           </p>
 
           <div className="space-y-6 flex-1">
-            {/* Name */}
             <div className="space-y-3">
               <label className="text-base font-semibold text-foreground">Your Name</label>
               <input
@@ -93,7 +91,6 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
               />
             </div>
 
-            {/* School */}
             <div className="space-y-3">
               <label className="text-base font-semibold text-foreground">School Name</label>
               <input
@@ -105,7 +102,6 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
               />
             </div>
 
-            {/* Form Level */}
             <div className="space-y-3">
               <label className="text-base font-semibold text-foreground">Select Your Class</label>
               <p className="text-base text-muted-foreground">
@@ -151,7 +147,6 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Skip button */}
       <div className="absolute top-4 right-4 z-10">
         <Button
           variant="ghost"
@@ -162,7 +157,6 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
         </Button>
       </div>
 
-      {/* Image section */}
       <div className="relative h-[50vh] w-full overflow-hidden">
         <Image
           src={slide.image}
@@ -174,8 +168,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
       </div>
 
-      {/* Content section */}
-      <div className="flex-1 px-6 py-8 flex flex-col">
+      <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8 sm:px-6">
         <div className={cn(
           "w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg",
           slide.color
@@ -192,7 +185,6 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
 
         <div className="flex-1" />
 
-        {/* Dots indicator */}
         <div className="flex items-center justify-center gap-3 mb-8">
           {slides.map((_, index) => (
             <button
@@ -209,7 +201,6 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
           ))}
         </div>
 
-        {/* Action button */}
         <Button
           onClick={handleNext}
           className="w-full h-16 rounded-2xl text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg"

@@ -43,9 +43,8 @@ export function EditProfileScreen({ onBack, onSave, currentProfile }: EditProfil
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-4 py-3">
-        <div className="flex items-center justify-between max-w-lg mx-auto">
+      <header className="sticky top-0 z-50 border-b border-border/70 bg-card/95 px-4 py-4 backdrop-blur-md sm:px-6">
+        <div className="mx-auto flex max-w-4xl items-center justify-between">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={onBack} className="rounded-full">
               <ArrowLeft className="w-5 h-5" />
@@ -63,8 +62,7 @@ export function EditProfileScreen({ onBack, onSave, currentProfile }: EditProfil
         </div>
       </header>
 
-      <div className="p-4 max-w-lg mx-auto space-y-6">
-        {/* Avatar */}
+      <div className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:px-6">
         <div className="flex justify-center">
           <div className="relative">
             <div className="w-24 h-24 rounded-full bg-primary flex items-center justify-center ring-4 ring-background shadow-lg">
@@ -78,9 +76,7 @@ export function EditProfileScreen({ onBack, onSave, currentProfile }: EditProfil
           </div>
         </div>
 
-        {/* Form Fields */}
         <div className="space-y-4">
-          {/* Name */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Full Name</label>
             <input
@@ -92,7 +88,6 @@ export function EditProfileScreen({ onBack, onSave, currentProfile }: EditProfil
             />
           </div>
 
-          {/* School */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">School</label>
             <input
@@ -104,11 +99,10 @@ export function EditProfileScreen({ onBack, onSave, currentProfile }: EditProfil
             />
           </div>
 
-          {/* Form Level */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Form Level</label>
             <p className="text-xs text-muted-foreground">
-              Live content is now available for Form 1 through Form 4.
+              Choose the class that matches what you want to study.
             </p>
             <div className="grid grid-cols-2 gap-3">
               {formOptions.map((option) => (
@@ -132,10 +126,9 @@ export function EditProfileScreen({ onBack, onSave, currentProfile }: EditProfil
           </div>
         </div>
 
-        {/* Info Card */}
         <div className="bg-primary/5 rounded-xl p-4 border border-primary/20">
           <p className="text-sm text-foreground">
-            <strong>Note:</strong> Your form level determines which live subjects and questions are loaded into the app.
+            <strong>Note:</strong> Your class decides which subjects and questions you see in the app.
           </p>
         </div>
       </div>

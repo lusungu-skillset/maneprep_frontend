@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from '@/components/ui/toaster'
+import { OfflineIndicator } from '@/components/offline-indicator'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -27,8 +28,21 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#3b5bdb',
+  themeColor: '#2563eb',
 }
+
+const themeInitializerScript = `
+  try {
+    const storedTheme = localStorage.getItem('maneb-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = storedTheme === 'dark' || (storedTheme === 'system' && prefersDark);
+    document.documentElement.classList.toggle('dark', isDark);
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.setAttribute('content', isDark ? '#1e293b' : '#2563eb');
+    }
+  } catch (error) {}
+`
 
 export default function RootLayout({
   children,
@@ -36,13 +50,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className="bg-background" suppressHydrationWarning>
       <body
         className="font-sans antialiased"
-        style={{ ['--font-inter' as string]: 'system-ui' }}
+        style={{ ['--font-inter' as string]: 'Plus Jakarta Sans' }}
       >
+        <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }} />
         {children}
         <Toaster />
+        <OfflineIndicator />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

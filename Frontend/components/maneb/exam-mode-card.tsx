@@ -17,15 +17,15 @@ export function ExamModeCard({
   onStart 
 }: ExamModeCardProps) {
   return (
-    <div className="bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-5 shadow-lg text-white">
+    <div className="rounded-[1.75rem] bg-gradient-to-br from-primary to-primary/85 p-6 text-white shadow-[0_24px_48px_-28px_rgba(37,99,235,0.9)]">
       <div className="flex items-start justify-between mb-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Award className="w-5 h-5" />
-            <span className="text-sm font-medium opacity-90">MANEB Exam Mode</span>
+            <span className="text-sm font-medium opacity-90">Full Practice</span>
           </div>
-          <h3 className="text-xl font-bold">Simulate Real Exam</h3>
-          <p className="text-sm opacity-80 mt-1">{subject}</p>
+          <h3 className="text-2xl font-bold">Try a full paper style quiz</h3>
+          <p className="mt-1 text-sm opacity-80">{subject}</p>
         </div>
       </div>
       
@@ -40,17 +40,17 @@ export function ExamModeCard({
         </div>
       </div>
       
-      <div className="bg-white/10 rounded-xl p-3 mb-4">
-        <p className="text-xs opacity-90">
-          Experience the real MANEB exam conditions. Timer will run, no going back on questions.
+      <div className="mb-5 rounded-2xl bg-white/12 p-4">
+        <p className="text-sm leading-6 opacity-90">
+          Work through a longer mixed quiz with a running timer and one-way question flow.
         </p>
       </div>
       
       <Button 
         onClick={onStart}
-        className="w-full bg-white text-primary hover:bg-white/90 font-semibold rounded-xl"
+        className="w-full bg-white text-primary hover:bg-white/90"
       >
-        Start Exam Mode
+        Start Full Practice
       </Button>
     </div>
   )

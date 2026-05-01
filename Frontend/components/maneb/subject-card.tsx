@@ -26,9 +26,8 @@ export function SubjectCard({
   return (
     <button
       onClick={onClick}
-      className="group bg-card rounded-2xl p-4 shadow-sm border border-border hover:shadow-md hover:border-primary/30 transition-all duration-300 active:scale-[0.98] w-full text-left relative overflow-hidden"
+      className="group relative w-full overflow-hidden rounded-[1.5rem] border border-border/70 bg-card/92 p-5 text-left shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg active:scale-[0.98]"
     >
-      {/* Shimmer effect on hover */}
       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       
       <div className="flex flex-col gap-3 relative">
@@ -57,7 +56,7 @@ export function SubjectCard({
         </div>
         <div>
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-foreground text-base">{name}</h3>
+            <h3 className="text-lg font-semibold text-foreground">{name}</h3>
             <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
           </div>
           <div className="mt-3">

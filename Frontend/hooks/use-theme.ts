@@ -4,55 +4,86 @@ import { useState, useEffect, useCallback } from "react"
 
 export type Theme = "light" | "dark" | "system"
 
+const THEME_STORAGE_KEY = "maneb-theme"
+const THEME_EVENT_NAME = "maneb-theme-change"
+
+function getStoredTheme(): Theme | null {
+  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY)
+
+  if (
+    storedTheme === "light" ||
+    storedTheme === "dark" ||
+    storedTheme === "system"
+  ) {
+    return storedTheme
+  }
+
+  return null
+}
+
+function applyThemeToDocument(theme: Theme): "light" | "dark" {
+  const root = document.documentElement
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+
+  root.classList.toggle("dark", isDark)
+
+  const metaTheme = document.querySelector('meta[name="theme-color"]')
+  if (metaTheme) {
+    metaTheme.setAttribute("content", isDark ? "#1e293b" : "#2563eb")
+  }
+
+  return isDark ? "dark" : "light"
+}
+
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>("light")
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light")
 
-  // Apply theme to document
-  const applyTheme = useCallback((newTheme: Theme) => {
-    const root = document.documentElement
-    const isDark = 
-      newTheme === "dark" || 
-      (newTheme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    
-    if (isDark) {
-      root.classList.add("dark")
-      setResolvedTheme("dark")
-    } else {
-      root.classList.remove("dark")
-      setResolvedTheme("light")
-    }
-    
-    // Update meta theme-color for mobile browsers
-    const metaTheme = document.querySelector('meta[name="theme-color"]')
-    if (metaTheme) {
-      metaTheme.setAttribute("content", isDark ? "#1a1625" : "#3b5bdb")
-    }
+  const syncTheme = useCallback((nextTheme: Theme) => {
+    setThemeState(nextTheme)
+    setResolvedTheme(applyThemeToDocument(nextTheme))
   }, [])
 
-  // Initialize theme from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem("maneb-theme") as Theme | null
-    const initialTheme = stored || "light"
-    setThemeState(initialTheme)
-    applyTheme(initialTheme)
+    syncTheme(getStoredTheme() ?? "light")
 
-    // Listen for system theme changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
-    const handleChange = () => {
-      if (theme === "system") {
-        applyTheme("system")
+
+    const handleSystemThemeChange = () => {
+      if ((getStoredTheme() ?? "light") === "system") {
+        syncTheme("system")
       }
     }
-    mediaQuery.addEventListener("change", handleChange)
-    return () => mediaQuery.removeEventListener("change", handleChange)
-  }, [applyTheme, theme])
+
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === THEME_STORAGE_KEY) {
+        syncTheme(getStoredTheme() ?? "light")
+      }
+    }
+
+    const handleThemeChange = () => {
+      syncTheme(getStoredTheme() ?? "light")
+    }
+
+    mediaQuery.addEventListener("change", handleSystemThemeChange)
+    window.addEventListener("storage", handleStorageChange)
+    window.addEventListener(THEME_EVENT_NAME, handleThemeChange)
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange)
+      window.removeEventListener("storage", handleStorageChange)
+      window.removeEventListener(THEME_EVENT_NAME, handleThemeChange)
+    }
+  }, [syncTheme])
 
   const setTheme = useCallback((newTheme: Theme) => {
-    setThemeState(newTheme)
-    localStorage.setItem("maneb-theme", newTheme)
-    applyTheme(newTheme)
-  }, [applyTheme])
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme)
+    syncTheme(newTheme)
+    window.dispatchEvent(new Event(THEME_EVENT_NAME))
+  }, [syncTheme])
 
   const toggleTheme = useCallback(() => {
     const newTheme = resolvedTheme === "light" ? "dark" : "light"
@@ -64,6 +95,6 @@ export function useTheme() {
     resolvedTheme,
     setTheme,
     toggleTheme,
-    isDark: resolvedTheme === "dark"
+    isDark: resolvedTheme === "dark",
   }
 }

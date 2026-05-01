@@ -17,8 +17,10 @@ import {
   FileSpreadsheet,
   GraduationCap,
   LayoutDashboard,
+  Moon,
   RefreshCw,
   Settings2,
+  Sun,
   Trash2,
   Upload,
 } from 'lucide-react'
@@ -44,6 +46,7 @@ import {
   updateAdminSubject,
   updateAdminTopic,
 } from '@/lib/admin-api'
+import { useTheme } from '@/hooks/use-theme'
 import { useToast } from '@/hooks/use-toast'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -151,7 +154,7 @@ const SECTION_ITEMS: Array<{
     id: 'dashboard',
     label: 'Dashboard',
     icon: LayoutDashboard,
-    description: 'Overview and recent activity',
+    description: 'See your study content at a glance',
   },
   {
     id: 'subjects',
@@ -179,15 +182,15 @@ const SECTION_ITEMS: Array<{
   },
   {
     id: 'upload',
-    label: 'Bulk Upload',
+    label: 'Upload Questions',
     icon: Upload,
-    description: 'Import questions from files',
+    description: 'Import many questions from one file',
   },
   {
     id: 'settings',
     label: 'Settings',
     icon: Settings2,
-    description: 'Admin access and connection settings',
+    description: 'Access key and refresh tools',
   },
 ]
 
@@ -404,7 +407,7 @@ function parseJsonUpload(text: string) {
   const payload = JSON.parse(text)
 
   if (!Array.isArray(payload)) {
-    throw new Error('JSON uploads must contain an array of question objects.')
+    throw new Error('This file needs to contain a list of question items.')
   }
 
   return payload.map((item, index) => {
@@ -426,7 +429,7 @@ function parseCsvUpload(text: string) {
     .filter(Boolean)
 
   if (lines.length < 2) {
-    throw new Error('CSV uploads must include a header row and at least one data row.')
+    throw new Error('This file needs a heading row and at least one question row.')
   }
 
   const headers = parseCsvLine(lines[0]).map((header) =>
@@ -544,6 +547,7 @@ function SectionShell({
 
 export function AdminDashboard() {
   const { toast } = useToast()
+  const { isDark, toggleTheme } = useTheme()
 
   const [activeSection, setActiveSection] = useState<AdminSection>('dashboard')
   const [adminKey, setAdminKey] = useState(DEFAULT_ADMIN_KEY)
@@ -691,7 +695,7 @@ export function AdminDashboard() {
       setDataError(null)
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : 'Unable to load admin content.'
+        error instanceof Error ? error.message : 'Unable to load your content.'
 
       setDataError(message)
       toast({
@@ -1090,7 +1094,7 @@ export function AdminDashboard() {
     const nextErrors: Record<string, string> = {}
 
     if (uploadForm.items.length === 0) {
-      nextErrors.file = 'Upload a JSON or CSV file first.'
+      nextErrors.file = 'Upload a question file first.'
     }
 
     if (
@@ -1136,7 +1140,7 @@ export function AdminDashboard() {
       setUploadErrors({})
       toast({
         title: 'Saved successfully',
-        description: `${response.count} questions uploaded to the backend.`,
+        description: `${response.count} questions imported successfully.`,
       })
     } catch (error) {
       toast({
@@ -1330,7 +1334,7 @@ export function AdminDashboard() {
     return (
       <SectionShell
         title="Content Overview"
-        description="Manage your educational content library at a glance."
+        description="See your study content in one clear place."
       >
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {[
@@ -1382,7 +1386,7 @@ export function AdminDashboard() {
             <CardHeader>
               <CardTitle className="text-lg">Recent Activity</CardTitle>
               <CardDescription>
-                Latest uploads and updates
+                Latest changes this week
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -2598,15 +2602,19 @@ export function AdminDashboard() {
   function renderUpload() {
     return (
       <SectionShell
-        title="Bulk Upload"
-        description="Bulk upload question content from files."
+        title="Upload Questions"
+        description="Import many questions from one file."
       >
         <div className="grid gap-4 xl:grid-cols-[0.95fr_1.35fr]">
           <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)]">
             <CardHeader>
-              <CardTitle>Upload file</CardTitle>
+              <CardTitle>Choose file</CardTitle>
               <CardDescription>
-                Use JSON arrays or CSV rows. CSV supports either an
+                Use a question file. You can upload
+                <code className="mx-1 rounded bg-muted px-1.5 py-0.5 text-xs">.json</code>
+                or
+                <code className="mx-1 rounded bg-muted px-1.5 py-0.5 text-xs">.csv</code>
+                files. CSV supports either an
                 <code className="mx-1 rounded bg-muted px-1.5 py-0.5 text-xs">options</code>
                 column separated by
                 <code className="mx-1 rounded bg-muted px-1.5 py-0.5 text-xs">|</code>
@@ -2617,7 +2625,7 @@ export function AdminDashboard() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label>Fallback form</Label>
+                <Label>Default form</Label>
                 <Select
                   value={uploadForm.form}
                   onValueChange={(value) =>
@@ -2643,7 +2651,7 @@ export function AdminDashboard() {
               </div>
 
               <div className="space-y-2">
-                <Label>Fallback subject</Label>
+                <Label>Default subject</Label>
                 <Select
                   value={uploadForm.subjectId}
                   onValueChange={(value) =>
@@ -2668,7 +2676,7 @@ export function AdminDashboard() {
               </div>
 
               <div className="space-y-2">
-                <Label>Fallback topic</Label>
+                <Label>Default topic</Label>
                 <Select
                   value={uploadForm.topicId}
                   onValueChange={(value) =>
@@ -2709,12 +2717,12 @@ export function AdminDashboard() {
                   }
                 />
                 <p className="text-xs text-muted-foreground">
-                  Use this as the default year for questions that don't have a year specified.
+                  Use this year when a question does not include one.
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="bulk-file">JSON or CSV file</Label>
+                <Label htmlFor="bulk-file">Question file</Label>
                 <Input
                   id="bulk-file"
                   type="file"
@@ -2725,7 +2733,7 @@ export function AdminDashboard() {
               </div>
 
               <div className="rounded-2xl border border-border/60 bg-background/70 p-4 text-sm text-muted-foreground">
-                <p className="font-medium text-foreground">Expected JSON shape</p>
+                <p className="font-medium text-foreground">Example file</p>
                 <pre className="mt-3 overflow-x-auto text-xs leading-6 text-muted-foreground">
 {`[
   {
@@ -2743,7 +2751,7 @@ export function AdminDashboard() {
 
               <Button onClick={() => void handleBulkUpload()} disabled={isUploading}>
                 {isUploading && <Spinner />}
-                Upload content
+                Import questions
               </Button>
             </CardContent>
           </Card>
@@ -2752,7 +2760,7 @@ export function AdminDashboard() {
             <CardHeader>
               <CardTitle>Preview</CardTitle>
               <CardDescription>
-                Review parsed rows before sending them to the NestJS API.
+                Check the rows before saving them.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -2775,7 +2783,7 @@ export function AdminDashboard() {
                 </div>
                 <div className="rounded-2xl border border-border/60 bg-background/70 p-4">
                   <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                    Missing topic IDs
+                    Need topic
                   </p>
                   <p className="mt-2 text-2xl font-semibold text-foreground">
                     {uploadForm.items.filter((item) => item.topicId === null).length}
@@ -2786,7 +2794,7 @@ export function AdminDashboard() {
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="rounded-2xl border border-border/60 bg-background/70 p-4">
                   <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                    With Exam Year
+                    With year
                   </p>
                   <p className="mt-2 text-2xl font-semibold text-foreground">
                     {uploadForm.items.filter((item) => item.year !== null && item.year !== undefined).length}
@@ -2809,7 +2817,7 @@ export function AdminDashboard() {
                     Upload a file to preview parsed questions.
                   </p>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    JSON and CSV are both supported.
+                    Both file types work here.
                   </p>
                 </div>
               )}
@@ -2823,7 +2831,7 @@ export function AdminDashboard() {
                     <div className="flex flex-wrap items-center gap-2">
                       <Badge variant="outline">Row {index + 1}</Badge>
                       <Badge variant="outline">
-                        Topic {(item.topicId ?? uploadForm.topicId) || 'fallback required'}
+                        Topic {(item.topicId ?? uploadForm.topicId) || 'needs default'}
                       </Badge>
                       <Badge variant="outline">
                         {item.difficulty ?? 'medium'}
@@ -2833,7 +2841,7 @@ export function AdminDashboard() {
                       {item.question}
                     </p>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Correct answer: {item.answer}
+                      Answer: {item.answer}
                     </p>
                   </div>
                 ))}
@@ -2841,7 +2849,7 @@ export function AdminDashboard() {
 
               {uploadForm.items.length > 5 && (
                 <p className="text-sm text-muted-foreground">
-                  Showing the first 5 rows. The full file will still be uploaded.
+                  Showing the first 5 rows. The whole file will still be imported.
                 </p>
               )}
             </CardContent>
@@ -2862,7 +2870,7 @@ export function AdminDashboard() {
             <CardHeader>
               <CardTitle>Security</CardTitle>
               <CardDescription>
-                Manage your access credentials for content management.
+                Keep your access key ready when you need to make changes.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -2880,7 +2888,7 @@ export function AdminDashboard() {
               <div className="rounded-xl border border-amber-200/50 bg-amber-50/50 dark:border-amber-900/30 dark:bg-amber-950/20 p-3 text-sm">
                 <p className="font-medium text-amber-900 dark:text-amber-200">Access required</p>
                 <p className="mt-1 text-amber-800/80 dark:text-amber-300/80 leading-5">
-                  Your access key is needed to create, update, or delete content.
+                  You need this key before you can add, change, or remove content.
                 </p>
               </div>
 
@@ -2891,11 +2899,11 @@ export function AdminDashboard() {
                     setAdminKey(DEFAULT_ADMIN_KEY)
                     toast({
                       title: 'Key reset',
-                      description: 'Your access key has been reset to default.',
+                      description: 'Your access key is back to the default value.',
                     })
                   }}
                 >
-                  Reset Key
+                  Reset access key
                 </Button>
                 <Button
                   variant="outline"
@@ -2903,7 +2911,7 @@ export function AdminDashboard() {
                   disabled={isRefreshing}
                 >
                   {isRefreshing ? <Spinner className="mr-2" /> : <RefreshCw className="mr-2 size-4" />}
-                  Sync Data
+                  Refresh
                 </Button>
               </div>
             </CardContent>
@@ -2913,22 +2921,22 @@ export function AdminDashboard() {
             <CardHeader>
               <CardTitle>Status</CardTitle>
               <CardDescription>
-                Current system status and sync information.
+                See whether content loaded and when it was last updated.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-xl border border-border/40 bg-background/50 p-3">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Connection Status</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Content status</p>
                 <div className="mt-2 flex items-center gap-2">
                   <div className={`size-2.5 rounded-full ${dataError ? 'bg-destructive' : 'bg-emerald-500'}`} />
                   <p className="text-sm font-medium text-foreground">
-                    {dataError ? 'Connection Error' : 'Connected'}
+                    {dataError ? 'Needs attention' : 'Ready'}
                   </p>
                 </div>
               </div>
 
               <div className="rounded-xl border border-border/40 bg-background/50 p-3">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Last Synced</p>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Last updated</p>
                 <p className="mt-2 text-sm font-medium text-foreground">
                   {lastSyncedAt ? formatDateTime(lastSyncedAt) : 'Never'}
                 </p>
@@ -2950,10 +2958,10 @@ export function AdminDashboard() {
             </div>
             <div>
               <p className="text-base font-medium text-foreground">
-                Loading admin content
+                Loading your content
               </p>
               <p className="text-sm text-muted-foreground">
-                Fetching subjects, topics, questions, and upload metadata.
+                Getting subjects, topics, questions, and paper details ready.
               </p>
             </div>
           </div>
@@ -3000,7 +3008,7 @@ export function AdminDashboard() {
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-foreground">MANEB Prep</p>
                 <p className="truncate text-xs text-muted-foreground">
-                  Content Manager
+                  Study Content
                 </p>
               </div>
             </div>
@@ -3038,7 +3046,7 @@ export function AdminDashboard() {
         <SidebarFooter className="p-4">
           <div className="rounded-xl border border-sidebar-border/40 bg-sidebar-accent/40 p-3 text-center">
             <p className="text-xs font-medium text-sidebar-foreground">
-              Content Manager v1
+              Editor v1
             </p>
           </div>
         </SidebarFooter>
@@ -3046,7 +3054,7 @@ export function AdminDashboard() {
 
       <SidebarInset className="min-h-screen bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
         <header className="sticky top-0 z-30 border-b border-border/40 bg-background/95 backdrop-blur-md">
-          <div className="flex flex-col gap-4 px-4 py-4 md:px-6">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 md:px-6">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <SidebarTrigger className="size-8 rounded-lg border border-border/40 bg-background hover:bg-muted" />
@@ -3063,12 +3071,21 @@ export function AdminDashboard() {
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
+                  size="icon"
+                  className="rounded-full"
+                  onClick={toggleTheme}
+                  aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                >
+                  {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+                </Button>
+                <Button
+                  variant="outline"
                   size="sm"
                   onClick={() => void refreshAllData()}
                   disabled={isRefreshing}
                 >
                   {isRefreshing ? <Spinner className="size-4" /> : <RefreshCw className="size-4" />}
-                  <span className="hidden sm:inline ml-2">Sync</span>
+                  <span className="hidden sm:inline ml-2">Refresh</span>
                 </Button>
               </div>
             </div>
@@ -3081,7 +3098,7 @@ export function AdminDashboard() {
           </div>
         </header>
 
-        <div className="flex-1 px-4 py-6 md:px-6 md:py-8">
+        <div className="mx-auto flex-1 w-full max-w-7xl px-4 py-6 md:px-6 md:py-8">
           {renderActiveSection()}
         </div>
       </SidebarInset>

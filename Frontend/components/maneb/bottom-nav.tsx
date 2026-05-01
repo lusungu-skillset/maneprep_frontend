@@ -19,8 +19,8 @@ const tabs = [
 
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
-      <div className="flex items-center justify-around max-w-lg mx-auto py-2 px-3">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/70 bg-card/95 shadow-[0_-10px_30px_rgba(15,23,42,0.08)] backdrop-blur-md">
+      <div className="mx-auto flex max-w-3xl items-center justify-around gap-1 px-3 py-3 sm:px-6">
         {tabs.map((tab) => {
           const Icon = tab.icon
           const isActive = activeTab === tab.id
@@ -29,9 +29,9 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
-                "flex flex-col items-center gap-1.5 px-5 py-3 rounded-2xl transition-all duration-200 min-w-[76px] min-h-[56px]",
+                "flex min-h-[60px] min-w-[76px] flex-col items-center gap-1.5 rounded-2xl px-4 py-3 transition-all duration-200",
                 isActive
-                  ? "bg-primary/10 text-primary"
+                  ? "bg-primary/12 text-primary shadow-sm"
                   : "text-muted-foreground hover:bg-muted active:scale-95"
               )}
               aria-current={isActive ? "page" : undefined}
@@ -48,7 +48,6 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
           )
         })}
       </div>
-      {/* Safe area padding for iOS */}
       <div className="h-[env(safe-area-inset-bottom)]" />
     </nav>
   )

@@ -56,10 +56,10 @@ export function SubjectsScreen({
   }
 
   return (
-    <div className="px-5 py-6 pb-28 space-y-6 max-w-lg mx-auto">
+    <div className="mx-auto max-w-6xl space-y-6 px-4 py-6 pb-28 sm:px-6 lg:px-8">
       <section className="mb-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-foreground">{userForm} Subjects</h2>
+          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">{userForm} Subjects</h2>
           <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-base font-semibold">
             {subjects.length} subjects
           </span>
@@ -72,7 +72,8 @@ export function SubjectsScreen({
         </div>
       )}
 
-      {subjects.map((subject) => {
+      <div className="grid gap-5 lg:grid-cols-2">
+        {subjects.map((subject) => {
         const Icon = subject.icon
         const isExpanded = expandedSubject === subject.id
 
@@ -155,6 +156,7 @@ export function SubjectsScreen({
           </div>
         )
       })}
+      </div>
     </div>
   )
 }

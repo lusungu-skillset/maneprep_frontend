@@ -20,24 +20,24 @@ interface FormSelectorScreenProps {
 
 const formInfo: Partial<Record<FormLevel, { description: string; subjects: string[]; examType: string }>> = {
   "Form 1": {
-    description: "Live content for early secondary foundation work.",
+    description: "Start with the key ideas for early secondary school.",
     subjects: [],
-    examType: " Connected",
+    examType: "Ready",
   },
   "Form 2": {
-    description: "Live content for lower secondary revision.",
+    description: "Build confidence with the next step in your revision.",
     subjects: [],
-    examType: " Connected",
+    examType: "Ready",
   },
   "Form 3": {
-    description: "Live content for upper secondary preparation.",
+    description: "Work through tougher topics as you prepare for exams.",
     subjects: [],
-    examType: " Connected",
+    examType: "Ready",
   },
   "Form 4": {
-    description: "Live content for MSCE preparation and testing.",
+    description: "Focus on final revision for MSCE and end-of-year papers.",
     subjects: [],
-    examType: " Connected",
+    examType: "Ready",
   },
 }
 
@@ -52,10 +52,9 @@ export function FormSelectorScreen({ currentForm, onSelectForm, onBack, isOnboar
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       {!isOnboarding && (
-        <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-4 py-3">
-          <div className="flex items-center gap-3 max-w-lg mx-auto">
+        <header className="sticky top-0 z-50 border-b border-border/70 bg-card/95 px-4 py-4 backdrop-blur-md sm:px-6">
+          <div className="mx-auto flex max-w-5xl items-center gap-3">
             <Button variant="ghost" size="icon" onClick={onBack} className="rounded-full">
               <ArrowLeft className="w-5 h-5" />
             </Button>
@@ -64,8 +63,7 @@ export function FormSelectorScreen({ currentForm, onSelectForm, onBack, isOnboar
         </header>
       )}
 
-      <div className="p-4 max-w-lg mx-auto">
-        {/* Logo and Title */}
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
         <div className="text-center mb-8 pt-4">
           <div className="flex justify-center mb-4">
             <Image
@@ -78,17 +76,16 @@ export function FormSelectorScreen({ currentForm, onSelectForm, onBack, isOnboar
           </div>
           <h2 className="text-2xl font-bold text-foreground">Select Your Class</h2>
           <p className="text-muted-foreground mt-2">
-            Choose the form whose live content you want to study
+            Choose the class you want to study now
           </p>
         </div>
 
-        {/* Form Options */}
-        <div className="space-y-3">
+        <div className="grid gap-3 md:grid-cols-2">
           {BACKEND_SUPPORTED_FORMS.map((form) => {
             const info = formInfo[form] ?? {
-              description: "data not available yet.",
+              description: "Study content is not ready yet.",
               subjects: [],
-              examType: "Unavailable",
+              examType: "Not ready",
             }
             const isSelected = selectedForm === form
             
@@ -136,7 +133,7 @@ export function FormSelectorScreen({ currentForm, onSelectForm, onBack, isOnboar
                       </span>
                       <span className="text-xs text-muted-foreground flex items-center gap-1">
                         <Users className="w-3 h-3" />
-                        Live content
+                        Study content
                       </span>
                     </div>
                   </div>
@@ -146,7 +143,6 @@ export function FormSelectorScreen({ currentForm, onSelectForm, onBack, isOnboar
           })}
         </div>
 
-        {/* Privacy Notice */}
         <div className="mt-6 p-4 rounded-xl bg-secondary/10 border border-secondary/20">
           <div className="flex gap-3">
             <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center flex-shrink-0">
@@ -155,13 +151,12 @@ export function FormSelectorScreen({ currentForm, onSelectForm, onBack, isOnboar
             <div>
               <h4 className="font-medium text-foreground text-sm">Your Privacy</h4>
               <p className="text-xs text-muted-foreground mt-1">
-                Your profile stays on this device. Only study content and progress events are sent to the backend.
+                Your profile stays on this device. Your app only sends what is needed to load study content and save progress.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Confirm Button */}
         <Button
           onClick={handleConfirm}
           className="w-full h-14 rounded-2xl text-base font-semibold mt-6"

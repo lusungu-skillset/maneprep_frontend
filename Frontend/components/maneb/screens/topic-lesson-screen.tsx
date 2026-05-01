@@ -33,8 +33,8 @@ export function TopicLessonScreen({
 }: TopicLessonScreenProps) {
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border px-4 py-3">
-        <div className="flex items-center gap-3 max-w-lg mx-auto">
+      <header className="sticky top-0 z-50 border-b border-border/70 bg-card/95 px-4 py-4 backdrop-blur-md sm:px-6">
+        <div className="mx-auto flex max-w-5xl items-center gap-3">
           <Button variant="ghost" size="icon" onClick={onBack} className="rounded-full flex-shrink-0">
             <ArrowLeft className="w-5 h-5" />
           </Button>
@@ -54,17 +54,16 @@ export function TopicLessonScreen({
         </div>
       </header>
 
-      <main className="px-4 py-6 pb-32 max-w-lg mx-auto">
+      <main className="mx-auto max-w-5xl px-4 py-6 pb-32 sm:px-6">
         <div className="flex items-center gap-2 mb-2">
           <BookOpen className="w-5 h-5 text-primary" />
-          <h2 className="text-lg font-semibold text-foreground">Backend Topic Preview</h2>
+          <h2 className="text-lg font-semibold text-foreground">Topic Preview</h2>
         </div>
-        <p className="text-sm text-muted-foreground mb-6">
-          These notes are coming straight from the backend question bank. Use them
-          to inspect the live content before starting the quiz.
+        <p className="mb-6 text-base text-muted-foreground">
+          Read through the questions below before you start the quiz.
         </p>
 
-        <div className="space-y-4">
+        <div className="grid gap-4 xl:grid-cols-2">
           {topic.questions.map((question, index) => (
             <div
               key={question.id}
@@ -134,8 +133,8 @@ export function TopicLessonScreen({
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-sm border-t border-border p-4">
-        <div className="max-w-lg mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 border-t border-border/70 bg-card/95 p-4 backdrop-blur-md">
+        <div className="mx-auto max-w-5xl">
           <Button
             onClick={onStartQuiz}
             className="w-full h-14 rounded-2xl text-base font-semibold bg-primary hover:bg-primary/90"
