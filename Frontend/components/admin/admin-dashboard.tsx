@@ -1385,7 +1385,7 @@ export function AdminDashboard() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3 mt-8">
-          <Card className="lg:col-span-2 rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="lg:col-span-2 rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow min-w-0">
             <CardHeader>
               <CardTitle className="text-lg">Recent Activity</CardTitle>
               <CardDescription>
@@ -1429,7 +1429,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow min-w-0">
             <CardHeader>
               <CardTitle className="text-lg">Quick Stats</CardTitle>
             </CardHeader>
@@ -1465,7 +1465,7 @@ export function AdminDashboard() {
         description="Create class subjects for each form, then use them as the backbone for topics and questions."
       >
         <div className="grid gap-4 lg:grid-cols-[0.95fr_1.35fr]">
-          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow min-w-0">
             <CardHeader>
               <CardTitle>
                 {editingSubjectId ? 'Edit subject' : 'Add subject'}
@@ -1530,7 +1530,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow min-w-0">
             <CardHeader className="gap-4">
               <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
@@ -1567,7 +1567,7 @@ export function AdminDashboard() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Table>
+              <div className="overflow-x-auto w-full min-w-0">\n              <Table className="min-w-max">
                 <TableHeader>
                   <TableRow>
                     <TableHead>Subject</TableHead>
@@ -1620,7 +1620,7 @@ export function AdminDashboard() {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+              </Table>\n              </div>
               <PaginationControls
                 page={subjectPagination.page}
                 totalPages={subjectPagination.totalPages}
@@ -1640,7 +1640,7 @@ export function AdminDashboard() {
         description="Create and organize course topics."
       >
         <div className="grid gap-4 xl:grid-cols-[0.95fr_1.35fr]">
-          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow min-w-0">
             <CardHeader>
               <CardTitle>{editingTopicId ? 'Edit topic' : 'Add topic'}</CardTitle>
               <CardDescription>
@@ -1703,7 +1703,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow">
+          <Card className="rounded-2xl border-0 shadow-sm hover:shadow-md transition-shadow min-w-0">
             <CardHeader className="gap-4">
               <div className="flex flex-col gap-4 lg:grid lg:grid-cols-3">
                 <div>
@@ -1757,7 +1757,7 @@ export function AdminDashboard() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Table>
+              <div className="overflow-x-auto w-full min-w-0">\n              <Table className="min-w-max">
                 <TableHeader>
                   <TableRow>
                     <TableHead>Topic</TableHead>
@@ -1817,7 +1817,7 @@ export function AdminDashboard() {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+              </Table>\n              </div>
               <PaginationControls
                 page={topicPagination.page}
                 totalPages={topicPagination.totalPages}
@@ -1837,7 +1837,7 @@ export function AdminDashboard() {
         description="Build and manage your question library."
       >
         <div className="grid gap-4 xl:grid-cols-[1fr_1.3fr]">
-          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)]">
+          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] min-w-0">
             <CardHeader>
               <CardTitle>
                 {editingQuestionId ? 'Edit question' : 'Add question'}
@@ -2121,7 +2121,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)]">
+          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] min-w-0">
             <CardHeader className="gap-4">
               <div className="space-y-4">
                 <div>
@@ -2195,7 +2195,7 @@ export function AdminDashboard() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Table>
+              <div className="overflow-x-auto w-full min-w-0">\n              <Table className="min-w-max">
                 <TableHeader>
                   <TableRow>
                     <TableHead>Question</TableHead>
@@ -2268,7 +2268,7 @@ export function AdminDashboard() {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+              </Table>\n              </div>
               <PaginationControls
                 page={questionPagination.page}
                 totalPages={questionPagination.totalPages}
@@ -2385,7 +2385,7 @@ export function AdminDashboard() {
         description="Create and organize past exam papers by year and form."
       >
         <div className="grid gap-4 xl:grid-cols-[0.95fr_1.35fr]">
-          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)]">
+          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] min-w-0">
             <CardHeader>
               <CardTitle>Add past paper</CardTitle>
               <CardDescription>Create a new past exam paper record</CardDescription>
@@ -2493,7 +2493,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)]">
+          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] min-w-0">
             <CardHeader className="gap-4">
               <div>
                 <CardTitle>Past papers list</CardTitle>
@@ -2542,7 +2542,7 @@ export function AdminDashboard() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Table>
+              <div className="overflow-x-auto w-full min-w-0">\n              <Table className="min-w-max">
                 <TableHeader>
                   <TableRow>
                     <TableHead>Title</TableHead>
@@ -2601,7 +2601,7 @@ export function AdminDashboard() {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+              </Table>\n              </div>
               <PaginationControls
                 page={pastPaperPagination.page}
                 totalPages={pastPaperPagination.totalPages}
@@ -2621,7 +2621,7 @@ export function AdminDashboard() {
         description="Import many questions from one file."
       >
         <div className="grid gap-4 xl:grid-cols-[0.95fr_1.35fr]">
-          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)]">
+          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] min-w-0">
             <CardHeader>
               <CardTitle>Choose file</CardTitle>
               <CardDescription>
@@ -2771,7 +2771,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)]">
+          <Card className="rounded-[28px] border-border/60 bg-card/85 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] min-w-0">
             <CardHeader>
               <CardTitle>Preview</CardTitle>
               <CardDescription>
@@ -2881,7 +2881,7 @@ export function AdminDashboard() {
         description="Manage your access and preferences."
       >
         <div className="grid gap-6 lg:grid-cols-2">
-          <Card className="rounded-2xl border-0 shadow-sm">
+          <Card className="rounded-2xl border-0 shadow-sm min-w-0">
             <CardHeader>
               <CardTitle>Security</CardTitle>
               <CardDescription>
@@ -2932,7 +2932,7 @@ export function AdminDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border-0 shadow-sm">
+          <Card className="rounded-2xl border-0 shadow-sm min-w-0">
             <CardHeader>
               <CardTitle>Status</CardTitle>
               <CardDescription>
