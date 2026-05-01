@@ -1302,18 +1302,21 @@ export function AdminDashboard() {
     ...subjects.map((subject) => ({
       id: `subject-${subject.id}`,
       label: `${subject.name} added to Form ${subject.form}`,
+      answer: undefined as string | undefined,
       kind: 'Subject',
       updatedAt: subject.updatedAt,
     })),
     ...topics.map((topic) => ({
       id: `topic-${topic.id}`,
       label: `${topic.name} in ${topic.subject.name}`,
+      answer: undefined as string | undefined,
       kind: 'Topic',
       updatedAt: topic.updatedAt,
     })),
     ...questions.map((question) => ({
       id: `question-${question.id}`,
       label: question.question,
+      answer: question.answer as string | undefined,
       kind: 'Question',
       updatedAt: question.updatedAt,
     })),
@@ -1402,14 +1405,21 @@ export function AdminDashboard() {
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant="secondary" className="text-xs">{
+                      <Badge variant={item.kind === 'Question' ? 'default' : 'secondary'} className={item.kind === 'Question' ? 'bg-emerald-500 hover:bg-emerald-600 text-white text-xs' : 'text-xs'}>{
                         item.kind === 'Subject' ? '📚' :
                         item.kind === 'Topic' ? '📖' : '❓'
                       } {item.kind}</Badge>
                     </div>
-                    <p className="text-sm font-medium text-foreground truncate">
+                    <p className="text-base font-semibold text-gray-900 dark:text-white mt-1">
                       {item.label}
                     </p>
+                    {item.answer && (
+                      <div className="mt-2 rounded-md bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50 p-2 inline-block">
+                        <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                          <span className="font-bold">Answer:</span> {item.answer}
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <span className="text-xs text-muted-foreground whitespace-nowrap">
                     {formatDateTime(item.updatedAt)}
@@ -2207,10 +2217,15 @@ export function AdminDashboard() {
                     <TableRow key={question.id}>
                       <TableCell className="max-w-md align-top">
                         <div className="space-y-2">
-                          <p className="line-clamp-2 font-medium text-foreground">
+                          <p className="line-clamp-2 text-base font-semibold text-gray-900 dark:text-white">
                             {question.question}
                           </p>
-                          <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+                          <div className="rounded-md bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50 p-2 mt-2 inline-block">
+                            <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                              <span className="font-bold">Answer:</span> {question.answer}
+                            </p>
+                          </div>
+                          <div className="flex flex-wrap gap-2 text-xs text-muted-foreground mt-2">
                             <span>{question.subject}</span>
                             <span>Form {question.form}</span>
                             <span>{question.options.length} options</span>
